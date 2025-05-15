@@ -21,7 +21,7 @@ const About = () => {
     "MongoDB",
   ];
 
-  const pdfUrl = "./Arinjay Resume.pdf";
+  const pdfUrl = "./ArinjayBhola-Resume.pdf";
 
   const handleDownload = () => {
     const link = document.createElement("a");
