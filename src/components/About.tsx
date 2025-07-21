@@ -31,9 +31,9 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col text-center w-1/2 mx-auto my-5 mt-10">
-      <div className="flex gap-4 text-center mx-auto">
-        <div className="flex flex-wrap gap-4 justify-center mx-auto p-4">
+    <section className="w-full px-4 py-10 flex justify-center">
+      <div className="w-full max-w-screen-md flex flex-col items-center text-center">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6">
           {skills.map((skill) => (
             <div
               key={skill}
@@ -42,15 +42,14 @@ const About = () => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="my-4">
+
         <Button
           onClick={handleDownload}
-          className="mt-4 px-8 py-4 rounded-lg">
+          className="mt-4 px-6 py-3 text-base sm:text-lg rounded-lg">
           Download Resume
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 

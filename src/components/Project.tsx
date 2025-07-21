@@ -15,7 +15,7 @@ const Project = () => {
     {
       id: "2",
       image: "./taskmanagment.png",
-      title: "Task Managment",
+      title: "Task Management",
       githubLink: "https://github.com/ArinjayBhola/Task-Managment",
       liveUrl: "https://task-managment-8ihr.vercel.app/",
       description:
@@ -45,7 +45,7 @@ const Project = () => {
     {
       id: "5",
       image: "./youtube.png",
-      title: "Youtube Clone",
+      title: "YouTube Clone",
       githubLink: "https://github.com/ArinjayBhola/Youtube",
       liveUrl: "https://youtube-delta-two.vercel.app/",
       description:
@@ -53,32 +53,33 @@ const Project = () => {
       techStack: ["React.js", "Tailwind CSS", "Redux"],
     },
   ];
-  return (
-    <div className="flex flex-col text-center items-center w-2/3 mx-auto my-5 mt-10">
-      <div
-        className="text-3xl"
-        id="projects">
-        Projects
-      </div>
-      <div className="border-b border-gray-500 h-4 m-5 w-1/2"></div>
 
-      <div className="gap-4 text-center mx-auto grid grid-cols-2 mt-5 h-full">
-        {project.map((p) => (
-          <div
-            className="span-2"
-            key={p.id}>
-            <ProjectCard
-              github={p.githubLink}
-              url={p.liveUrl}
-              title={p.title}
-              description={p.description}
-              image={p.image}
-              stack={p.techStack}
-            />
-          </div>
-        ))}
+  return (
+    <section
+      className="w-full px-4 py-16 flex justify-center"
+      id="projects">
+      <div className="w-full max-w-screen-lg flex flex-col items-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2">Projects</h2>
+        <div className="border-b border-gray-500 w-1/2 my-4"></div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full place-items-center">
+          {project.map((p) => (
+            <div
+              key={p.id}
+              className="w-full max-w-md">
+              <ProjectCard
+                github={p.githubLink}
+                url={p.liveUrl}
+                title={p.title}
+                description={p.description}
+                image={p.image}
+                stack={p.techStack}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

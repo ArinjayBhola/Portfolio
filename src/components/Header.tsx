@@ -6,28 +6,33 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4 mx-2">
-      <div className="text-2xl font-bold"></div>
-      <div className="flex gap-10 items-center my-1 mx-2 text-lg font-semibold">
-        <p className="cursor-pointer">Home</p>
-        <p className="cursor-pointer">About</p>
+    <header className="hidden md:flex w-full px-4 py-3 justify-between items-center shadow-sm sticky top-0 bg-white z-50">
+      <div className="text-xl font-bold">Arinjay Bhola | Full Stack Developer</div>
+
+      <nav className="flex gap-8 items-center text-lg font-medium">
         <p
           className="cursor-pointer"
-          onClick={() => {
-            scrollToSection("projects");
-          }}>
+          onClick={() => scrollToSection("home")}>
+          Home
+        </p>
+        <p
+          className="cursor-pointer"
+          onClick={() => scrollToSection("about")}>
+          About
+        </p>
+        <p
+          className="cursor-pointer"
+          onClick={() => scrollToSection("projects")}>
           Projects
         </p>
         <Button
           variant={"default"}
-          className="px-9 py-1"
-          onClick={() => {
-            scrollToSection("contact");
-          }}>
+          className="px-6 py-2"
+          onClick={() => scrollToSection("contact")}>
           Contact
         </Button>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
 
