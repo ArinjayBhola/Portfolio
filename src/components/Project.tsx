@@ -1,4 +1,5 @@
 import ProjectCard from "./ProjectCard";
+import { motion } from "framer-motion";
 
 const Project = () => {
   const project = [
@@ -56,28 +57,40 @@ const Project = () => {
 
   return (
     <section
-      className="w-full px-4 py-16 flex justify-center"
-      id="projects">
+      className="w-full px-4 py-20 flex justify-center bg-gradient-to-b from-white/60 via-blue-50/40 dark:from-slate-900/90 dark:via-slate-800/80 to-transparent"
+      id="projects"
+    >
       <div className="w-full max-w-screen-lg flex flex-col items-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2">Projects</h2>
-        <div className="border-b border-gray-500 w-1/2 my-4"></div>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.7 }}
+          className="text-3xl sm:text-4xl font-extrabold text-center mb-2 bg-gradient-to-tr from-blue-900 via-teal-500 to-cyan-400 dark:from-blue-200 dark:via-cyan-300 dark:to-teal-200 bg-clip-text text-transparent drop-shadow"
+        >
+          Projects
+        </motion.h2>
+        <div className="border-b border-blue-500 dark:border-cyan-700 w-16 my-4 opacity-80"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full place-items-center">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full place-items-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ staggerChildren: 0.12 }}
+        >
           {project.map((p) => (
-            <div
+            <ProjectCard
               key={p.id}
-              className="w-full max-w-md">
-              <ProjectCard
-                github={p.githubLink}
-                url={p.liveUrl}
-                title={p.title}
-                description={p.description}
-                image={p.image}
-                stack={p.techStack}
-              />
-            </div>
+              github={p.githubLink}
+              url={p.liveUrl}
+              title={p.title}
+              description={p.description}
+              image={p.image}
+              stack={p.techStack}
+            />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

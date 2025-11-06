@@ -1,5 +1,5 @@
-import { FaGithub } from "react-icons/fa";
-import { FaLink } from "react-icons/fa6";
+import { Github, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   github: string;
@@ -12,40 +12,67 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ github, url, title, description, image, stack }: ProjectCardProps) => {
   return (
-    <div className="flex flex-col gap-3 border border-gray-200 my-2">
-      <img
-        src={image}
-        alt="Not Found"
-      />
-      <div className="flex flex-col">
-        <p className="text-lg mt-2 font-semibold">{title}</p>
-        <div className="border-b border-gray-500 h-4 mb-1 w-1/2 mx-auto"></div>
-        <p className="font-light m-1">{description}</p>
-        <div className="flex flex-wrap gap-2 m-1 mx-2">
-          {stack.map((s, index) => (
-            <p
+    <motion.article
+      whileHover={{ y: -8, scale: 1.025, boxShadow: "0px 12px 60px 0px rgba(0,0,0,0.14)" }}
+      whileTap={{ scale: 0.97 }}
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 glass-card shadow-lg overflow-hidden bg-white/70 dark:bg-black/70 backdrop-blur-lg min-h-[340px] w-full max-w-md transition-all group"
+      tabIndex={0}
+      aria-label={`${title} project`}
+    >
+      <div className="w-full aspect-[3/2] overflow-hidden bg-gradient-to-tr from-slate-200/70 via-sky-100/50 to-teal-100/40 dark:from-slate-800/70 dark:via-sky-900/50">
+        <img
+          src={image}
+          alt={`${title} project screenshot`}
+          className="object-cover w-full h-full group-hover:scale-[1.045] transition-transform duration-400 ease-in-out"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex flex-col flex-1 px-4 pb-4 pt-2 justify-between">
+        <div>
+          <h3 className="text-xl font-bold mt-1 tracking-tight mb-1 text-slate-800 dark:text-slate-100">
+            {title}
+          </h3>
+          <div className="border-b border-blue-400 dark:border-teal-600 w-1/2 mx-auto opacity-70 mb-2"></div>
+          <p className="font-medium text-gray-600 dark:text-gray-200 mb-2 leading-relaxed">
+            {description}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 my-2">
+          {stack.map((tech, index) => (
+            <span
               key={index}
-              className="bg-gray-200 px-2 py-1 rounded hover:scale-105 transition cursor-pointer duration-300 ease-in-out">
-              {s}
-            </p>
+              className="bg-sky-100/60 dark:bg-sky-900/40 border border-sky-300 dark:border-sky-600 text-sky-800 dark:text-sky-200 py-1 px-2 rounded-lg font-medium glassy text-xs tracking-tight shadow backdrop-blur select-none"
+            >
+              {tech}
+            </span>
           ))}
         </div>
-
-        <div className="flex gap-2 m-2">
+        <div className="flex flex-row gap-4 mt-2">
           <a
             href={github}
             target="_blank"
-            className="ml-2">
-            <FaGithub />
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub"
+            className="hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <Github size={20} />
           </a>
           <a
             href={url}
-            target="_blank">
-            <FaLink />
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit live project"
+            className="hover:text-blue-500 dark:hover:text-cyan-300 transition-colors"
+          >
+            <ExternalLink size={20} />
           </a>
         </div>
       </div>
-    </div>
+    </motion.article>
   );
 };
 
