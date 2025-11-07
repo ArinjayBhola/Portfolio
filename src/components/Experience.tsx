@@ -1,57 +1,59 @@
 import { motion } from "framer-motion";
-import { Briefcase, Globe, Server, Container, Code2, Cloud, Layers } from "lucide-react";
+import { FaReact, FaNodeJs, FaDocker } from "react-icons/fa";
+import { SiNextdotjs, SiSpringboot, SiVercel, SiCloudflare, SiTailwindcss } from "react-icons/si";
+import { MdWork, MdPublic } from "react-icons/md";
 
 const techIcons: Record<string, JSX.Element> = {
   Docker: (
-    <Container
-      className="inline mr-1"
+    <FaDocker
+      className="inline mr-1 text-sky-500"
       size={16}
     />
-  ), // Lucide Container
+  ),
   "React.js": (
-    <Code2
+    <FaReact
       className="inline mr-1 text-cyan-400"
       size={16}
     />
-  ), // code icon
+  ),
   React: (
-    <Code2
+    <FaReact
       className="inline mr-1 text-cyan-400"
       size={16}
     />
-  ), // code icon
+  ),
   "Node.js": (
-    <Server
-      className="inline mr-1 text-green-600"
+    <FaNodeJs
+      className="inline mr-1 text-green-500"
       size={16}
     />
-  ), // server icon
+  ),
   "Next.js": (
-    <Layers
-      className="inline mr-1 text-black dark:text-white"
+    <SiNextdotjs
+      className="inline mr-1 text-gray-900 dark:text-white"
       size={16}
     />
-  ), // layers for Next.js
+  ),
   "Spring Boot": (
-    <Cloud
+    <SiSpringboot
       className="inline mr-1 text-green-700"
       size={16}
     />
   ),
   Vercel: (
-    <Globe
-      className="inline mr-1"
+    <SiVercel
+      className="inline mr-1 text-gray-900 dark:text-white"
       size={16}
     />
   ),
   "Cloudflare Workers": (
-    <Globe
+    <SiCloudflare
       className="inline mr-1 text-orange-400"
       size={16}
     />
   ),
   "Tailwind CSS": (
-    <Code2
+    <SiTailwindcss
       className="inline mr-1 text-sky-400"
       size={16}
     />
@@ -68,9 +70,9 @@ const Experience = () => {
         "Led debugging efforts and optimized page functionality to enhance overall user experience, resulting in improved performance and faster load times.",
         "Developed and implemented responsive web pages, driving a smoother and more efficient interaction for end-users.",
         "Collaborated cross-functionally with team members to identify performance bottlenecks, resolve technical issues, and deliver a seamless application experience.",
-        "Utilized Container to containerize and run the API, ensuring a consistent and isolated environment for development, testing, and deployment.",
+        "Containerized and deployed APIs using Docker, ensuring a consistent and isolated environment for development, testing, and production.",
       ],
-      technologies: ["React.js", "Node.js", "Container", "Tailwind CSS", "Container", "Spring Boot"],
+      technologies: ["React.js", "Node.js", "Docker", "Tailwind CSS", "Spring Boot"],
     },
     {
       role: "Freelance Full Stack Developer",
@@ -114,12 +116,12 @@ const Experience = () => {
               aria-label={`Job at ${exp.company}`}>
               <div className="flex items-center gap-3 mb-2 flex-wrap">
                 {index === 0 ? (
-                  <Briefcase
+                  <MdWork
                     className="text-blue-600 dark:text-teal-300"
                     size={22}
                   />
                 ) : (
-                  <Globe
+                  <MdPublic
                     className="text-cyan-500"
                     size={22}
                   />
@@ -130,11 +132,13 @@ const Experience = () => {
                 </span>
                 <span className="text-xs text-gray-500 ml-1">{exp.duration}</span>
               </div>
+
               <ul className="list-disc ml-6 text-gray-600 dark:text-gray-200/90 mb-1 space-y-1 font-medium">
                 {exp.description.map((line, i) => (
                   <li key={i}>{line}</li>
                 ))}
               </ul>
+
               <div className="flex flex-wrap gap-2 text-sm mt-3">
                 {exp.technologies.map((tech, i) => (
                   <span
