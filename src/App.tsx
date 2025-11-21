@@ -4,16 +4,20 @@ import Experience from "./components/Experience";
 import Header from "./components/Header";
 import Info from "./components/Info";
 import Project from "./components/Project";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <Header />
-      <Info />
-      <Experience />
-      <About />
-      <Project />
-      <Contact />
+      <main>
+        <Info />
+        <About />
+        <Experience />
+        <Project />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
