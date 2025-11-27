@@ -1,88 +1,126 @@
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import { Mail, User2, MessageSquareText } from "lucide-react";
+import { Mail, User, MessageSquare, Send } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section
-      className="w-full px-4 py-20 flex justify-center bg-gradient-to-b from-blue-50/50 via-white/70 dark:from-slate-900/80 dark:via-black/80 to-transparent"
-      id="contact"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.7 }}
-        transition={{ duration: 0.7 }}
-        className="w-full max-w-2xl flex flex-col items-center rounded-3xl bg-white/70 dark:bg-black/70 shadow-2xl backdrop-blur-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-12"
-        style={{ WebkitBackdropFilter: 'blur(18px)', backdropFilter: 'blur(18px)' }}
-        aria-label="Contact Section"
-      >
-        <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 bg-gradient-to-r from-blue-800 via-teal-400 to-teal-300 dark:from-blue-200 dark:via-teal-400 dark:to-cyan-200 bg-clip-text text-transparent drop-shadow">
-          Contact
-        </h2>
-        <div className="border-b border-blue-300 dark:border-cyan-700 w-16 my-4 opacity-70"></div>
+    <section id="contact" className="py-20 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            Have a project in mind or just want to say hi? I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+          </p>
+        </motion.div>
 
-        <p className="text-sm text-red-600 mb-5 italic text-center">
-          This form is currently non-functional, but will be available soon.
-        </p>
-
-        <form className="w-full flex flex-col gap-7" aria-label="Contact form">
-          <div className="flex flex-col sm:flex-row gap-7 w-full">
-            <div className="flex flex-col w-full">
-              <label htmlFor="name" className="text-gray-800 dark:text-gray-200 font-semibold mb-1 flex items-center gap-2">
-                <User2 className="text-blue-400" size={18} /> Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Your Name"
-                className="w-full px-4 py-2 border border-blue-200 dark:border-slate-700 rounded-lg bg-white/60 dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-md"
-                disabled
-                tabIndex={-1}
-              />
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-8"
+          >
+            <div className="glass-card p-8 rounded-2xl">
+              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <div className="space-y-6">
+                <a 
+                  href="mailto:arinjay26bhola@gmail.com" 
+                  className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Mail size={24} />
+                  </div>
+                  <span className="text-lg">arinjay26bhola@gmail.com</span>
+                </a>
+                <div className="flex items-center gap-4 text-muted-foreground">
+                  <div className="p-3 rounded-full bg-primary/10 text-primary">
+                    <User size={24} />
+                  </div>
+                  <span className="text-lg">Full Stack Developer</span>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="email" className="text-gray-800 dark:text-gray-200 font-semibold mb-1 flex items-center gap-2">
-                <Mail className="text-blue-400" size={18} /> Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="example@example.com"
-                className="w-full px-4 py-2 border border-blue-200 dark:border-slate-700 rounded-lg bg-white/60 dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-md"
-                disabled
-                tabIndex={-1}
-              />
+
+            <div className="glass-card p-8 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 border-primary/20">
+              <h3 className="text-xl font-bold mb-2">Open for Opportunities</h3>
+              <p className="text-muted-foreground">
+                I am currently available for freelance work and full-time positions. If you have a project that needs some creative touch, let's connect!
+              </p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col w-full">
-            <label htmlFor="message" className="text-gray-800 dark:text-gray-200 font-semibold mb-1 flex items-center gap-2">
-              <MessageSquareText className="text-blue-400" size={18} /> Your Message
-            </label>
-            <textarea
-              id="message"
-              placeholder="Enter your message here"
-              rows={6}
-              className="w-full px-4 py-2 border border-blue-200 dark:border-slate-700 rounded-lg bg-white/60 dark:bg-slate-900/60 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 transition shadow-md"
-              disabled
-              tabIndex={-1}
-            />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="glass-card p-8 rounded-2xl"
+          >
+            <form className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium">Name</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 text-muted-foreground" size={18} />
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Your Name"
+                    className="w-full pl-10 pr-4 py-2 bg-background/50 border border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    disabled
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium">Email</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 text-muted-foreground" size={18} />
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="your@email.com"
+                    className="w-full pl-10 pr-4 py-2 bg-background/50 border border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    disabled
+                  />
+                </div>
+              </div>
 
-          <div className="flex justify-end">
-            <Button
-              className="bg-gradient-to-r from-blue-700 via-blue-500 to-teal-400 text-white px-10 py-2 rounded-lg font-semibold shadow hover:bg-blue-800/90 transition-all focus-visible:ring-2 focus-visible:ring-blue-400 disabled:opacity-70 disabled:cursor-not-allowed"
-              disabled
-              aria-disabled="true"
-            >
-              Submit
-            </Button>
-          </div>
-        </form>
-      </motion.div>
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium">Message</label>
+                <div className="relative">
+                  <MessageSquare className="absolute left-3 top-3 text-muted-foreground" size={18} />
+                  <textarea
+                    id="message"
+                    placeholder="Your message..."
+                    rows={4}
+                    className="w-full pl-10 pr-4 py-2 bg-background/50 border border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <Button className="w-full gap-2" disabled>
+                Send Message
+                <Send size={18} />
+              </Button>
+              <p className="text-xs text-center text-muted-foreground">
+                Form is currently disabled. Please email me directly.
+              </p>
+            </form>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
 
 export default Contact;
+

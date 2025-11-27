@@ -1,79 +1,22 @@
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaDocker } from "react-icons/fa";
 import { SiNextdotjs, SiSpringboot, SiVercel, SiCloudflare, SiTailwindcss } from "react-icons/si";
-import { MdWork, MdPublic } from "react-icons/md";
+import { Briefcase } from "lucide-react";
 
 const techIcons: Record<string, JSX.Element> = {
-  Docker: (
-    <FaDocker
-      className="inline mr-1 text-sky-500"
-      size={16}
-    />
-  ),
-  "React.js": (
-    <FaReact
-      className="inline mr-1 text-cyan-400"
-      size={16}
-    />
-  ),
-  React: (
-    <FaReact
-      className="inline mr-1 text-cyan-400"
-      size={16}
-    />
-  ),
-  "Node.js": (
-    <FaNodeJs
-      className="inline mr-1 text-green-500"
-      size={16}
-    />
-  ),
-  "Next.js": (
-    <SiNextdotjs
-      className="inline mr-1 text-gray-900 dark:text-white"
-      size={16}
-    />
-  ),
-  "Spring Boot": (
-    <SiSpringboot
-      className="inline mr-1 text-green-700"
-      size={16}
-    />
-  ),
-  Vercel: (
-    <SiVercel
-      className="inline mr-1 text-gray-900 dark:text-white"
-      size={16}
-    />
-  ),
-  "Cloudflare Workers": (
-    <SiCloudflare
-      className="inline mr-1 text-orange-400"
-      size={16}
-    />
-  ),
-  "Tailwind CSS": (
-    <SiTailwindcss
-      className="inline mr-1 text-sky-400"
-      size={16}
-    />
-  ),
+  Docker: <FaDocker className="text-sky-500" size={16} />,
+  "React.js": <FaReact className="text-cyan-400" size={16} />,
+  React: <FaReact className="text-cyan-400" size={16} />,
+  "Node.js": <FaNodeJs className="text-green-500" size={16} />,
+  "Next.js": <SiNextdotjs className="text-foreground" size={16} />,
+  "Spring Boot": <SiSpringboot className="text-green-700" size={16} />,
+  Vercel: <SiVercel className="text-foreground" size={16} />,
+  "Cloudflare Workers": <SiCloudflare className="text-orange-400" size={16} />,
+  "Tailwind CSS": <SiTailwindcss className="text-sky-400" size={16} />,
 };
 
 const Experience = () => {
   const experiences = [
-    {
-      role: "Software Engineering Intern",
-      company: "Codehop Interfusion Pvt. Ltd",
-      duration: "June 2024 – September 2024",
-      description: [
-        "Led debugging efforts and optimized page functionality to enhance overall user experience, resulting in improved performance and faster load times.",
-        "Developed and implemented responsive web pages, driving a smoother and more efficient interaction for end-users.",
-        "Collaborated cross-functionally with team members to identify performance bottlenecks, resolve technical issues, and deliver a seamless application experience.",
-        "Containerized and deployed APIs using Docker, ensuring a consistent and isolated environment for development, testing, and production.",
-      ],
-      technologies: ["React.js", "Node.js", "Docker", "Tailwind CSS", "Spring Boot"],
-    },
     {
       role: "Freelance Full Stack Developer",
       company: "Remote",
@@ -86,75 +29,88 @@ const Experience = () => {
       ],
       technologies: ["Next.js", "React", "Node.js", "Tailwind CSS", "Vercel", "Cloudflare Workers"],
     },
+    {
+      role: "Software Engineering Intern",
+      company: "Codehop Interfusion Pvt. Ltd",
+      duration: "June 2024 – September 2024",
+      description: [
+        "Led debugging efforts and optimized page functionality to enhance overall user experience, resulting in improved performance and faster load times.",
+        "Developed and implemented responsive web pages, driving a smoother and more efficient interaction for end-users.",
+        "Collaborated cross-functionally with team members to identify performance bottlenecks, resolve technical issues, and deliver a seamless application experience.",
+        "Containerized and deployed APIs using Docker, ensuring a consistent and isolated environment for development, testing, and production.",
+      ],
+      technologies: ["React.js", "Node.js", "Docker", "Tailwind CSS", "Spring Boot"],
+    },
   ];
 
   return (
-    <section
-      className="w-full px-4 py-16 flex justify-center bg-gradient-to-b from-white/80 via-blue-50/60 dark:from-gray-900/80 dark:via-slate-900/50 to-transparent"
-      id="experience">
-      <div className="w-full max-w-screen-md flex flex-col items-center text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
+    <section id="experience" className="py-20 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.7 }}
-          className="text-3xl sm:text-4xl font-extrabold mb-2 bg-gradient-to-tr from-blue-900 via-teal-500 to-cyan-400 dark:from-blue-200 dark:via-cyan-300 dark:to-teal-200 bg-clip-text text-transparent drop-shadow">
-          Experience
-        </motion.h2>
-        <div className="border-b border-blue-500 dark:border-cyan-700 w-16 my-4 opacity-80"></div>
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Experience</h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+        </motion.div>
 
-        <ol className="w-full flex flex-col mt-8 gap-8 relative">
+        <div className="max-w-3xl mx-auto">
           {experiences.map((exp, index) => (
-            <motion.li
+            <motion.div
               key={index}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ delay: 0.09 * index, duration: 0.62 }}
-              className="relative text-left rounded-2xl shadow-lg hover:shadow-xl backdrop-blur bg-white/70 dark:bg-black/60 border border-slate-200 dark:border-slate-900 px-7 py-7 transition-all group overflow-hidden before:absolute before:left-[-8px] before:top-9 before:w-0.5 before:h-[calc(100%-2rem)] before:bg-gradient-to-b before:from-blue-400/30 before:to-teal-500/20 before:-z-0"
-              tabIndex={0}
-              aria-label={`Job at ${exp.company}`}>
-              <div className="flex items-center gap-3 mb-2 flex-wrap">
-                {index === 0 ? (
-                  <MdWork
-                    className="text-blue-600 dark:text-teal-300"
-                    size={22}
-                  />
-                ) : (
-                  <MdPublic
-                    className="text-cyan-500"
-                    size={22}
-                  />
-                )}
-                <h3 className="text-xl font-semibold inline-block">{exp.role}</h3>
-                <span className="ml-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-100/60 dark:bg-slate-800/40 text-blue-900 dark:text-blue-200">
-                  {exp.company}
-                </span>
-                <span className="text-xs text-gray-500 ml-1">{exp.duration}</span>
-              </div>
-
-              <ul className="list-disc ml-6 text-gray-600 dark:text-gray-200/90 mb-1 space-y-1 font-medium">
-                {exp.description.map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-2 text-sm mt-3">
-                {exp.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="glass-card px-3 py-1 rounded-full flex items-center gap-1 border border-blue-200 dark:border-teal-700 bg-blue-100/50 dark:bg-slate-800/70 text-blue-900 dark:text-blue-200 font-semibold shadow-sm">
-                    {techIcons[tech] || null}
-                    {tech}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative pl-8 pb-12 last:pb-0 border-l-2 border-white/10 last:border-l-0 ml-4 md:ml-0"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary shadow-[0_0_10px_rgba(124,58,237,0.5)]" />
+              
+              <div className="glass-card p-6 rounded-2xl relative -top-2">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
+                    <div className="flex items-center gap-2 text-primary font-medium">
+                      <Briefcase size={16} />
+                      <span>{exp.company}</span>
+                    </div>
+                  </div>
+                  <span className="text-sm text-muted-foreground bg-white/5 px-3 py-1 rounded-full w-fit">
+                    {exp.duration}
                   </span>
-                ))}
+                </div>
+
+                <ul className="space-y-2 mb-6">
+                  {exp.description.map((line, i) => (
+                    <li key={i} className="text-muted-foreground text-sm leading-relaxed flex items-start gap-2">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium flex items-center gap-1.5 hover:bg-white/10 transition-colors"
+                    >
+                      {techIcons[tech]}
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </motion.li>
+            </motion.div>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Experience;
+

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import ProjectCard from "./ProjectCard";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaReact, FaDocker, FaLink } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -18,122 +19,35 @@ import {
 } from "react-icons/si";
 
 const techIcons: Record<string, JSX.Element> = {
-  "Next.js": (
-    <SiNextdotjs
-      className="inline mr-1 text-gray-900 dark:text-white"
-      size={16}
-    />
-  ),
-  React: (
-    <FaReact
-      className="inline mr-1 text-cyan-400"
-      size={16}
-    />
-  ),
-  "React.js": (
-    <FaReact
-      className="inline mr-1 text-cyan-400"
-      size={16}
-    />
-  ),
-  "Tailwind CSS": (
-    <SiTailwindcss
-      className="inline mr-1 text-sky-400"
-      size={16}
-    />
-  ),
-  PostgreSQL: (
-    <SiPostgresql
-      className="inline mr-1 text-blue-600"
-      size={16}
-    />
-  ),
-  "Prisma ORM": (
-    <SiPrisma
-      className="inline mr-1 text-slate-700 dark:text-white"
-      size={16}
-    />
-  ),
-  Redux: (
-    <SiRedux
-      className="inline mr-1 text-purple-600"
-      size={16}
-    />
-  ),
-  Firebase: (
-    <SiFirebase
-      className="inline mr-1 text-amber-500"
-      size={16}
-    />
-  ),
-  "Gemini API": (
-    <SiGooglegemini
-      className="inline mr-1 text-cyan-400"
-      size={16}
-    />
-  ),
-  "Material UI": (
-    <SiMui
-      className="inline mr-1 text-blue-500"
-      size={16}
-    />
-  ),
-  Hono: (
-    <SiHono
-      className="inline mr-1 text-orange-500"
-      size={16}
-    />
-  ),
-  Inngest: (
-    <FaLink
-      className="inline mr-1 text-indigo-500"
-      size={16}
-    />
-  ),
-  Clerk: (
-    <SiClerk
-      className="inline mr-1 text-pink-500"
-      size={16}
-    />
-  ),
-  "TMDB API": (
-    <FaLink
-      className="inline mr-1 text-green-600"
-      size={16}
-    />
-  ),
-  Vercel: (
-    <SiVercel
-      className="inline mr-1 text-gray-900 dark:text-white"
-      size={16}
-    />
-  ),
-  Docker: (
-    <FaDocker
-      className="inline mr-1 text-sky-500"
-      size={16}
-    />
-  ),
-  "Drizzle ORM": (
-    <SiDrizzle
-      className="inline mr-1 text-blue-500"
-      size={16}
-    />
-  ),
-  Razorpay: (
-    <SiRazorpay
-      className="inline mr-1 text-blue-500"
-      size={16}
-    />
-  ),
+  "Next.js": <SiNextdotjs className="inline mr-1" size={14} />,
+  React: <FaReact className="inline mr-1" size={14} />,
+  "React.js": <FaReact className="inline mr-1" size={14} />,
+  "Tailwind CSS": <SiTailwindcss className="inline mr-1" size={14} />,
+  PostgreSQL: <SiPostgresql className="inline mr-1" size={14} />,
+  "Prisma ORM": <SiPrisma className="inline mr-1" size={14} />,
+  Redux: <SiRedux className="inline mr-1" size={14} />,
+  Firebase: <SiFirebase className="inline mr-1" size={14} />,
+  "Gemini API": <SiGooglegemini className="inline mr-1" size={14} />,
+  "Material UI": <SiMui className="inline mr-1" size={14} />,
+  Hono: <SiHono className="inline mr-1" size={14} />,
+  Inngest: <FaLink className="inline mr-1" size={14} />,
+  Clerk: <SiClerk className="inline mr-1" size={14} />,
+  "TMDB API": <FaLink className="inline mr-1" size={14} />,
+  Vercel: <SiVercel className="inline mr-1" size={14} />,
+  Docker: <FaDocker className="inline mr-1" size={14} />,
+  "Drizzle ORM": <SiDrizzle className="inline mr-1" size={14} />,
+  Razorpay: <SiRazorpay className="inline mr-1" size={14} />,
 };
 
 const Project = () => {
+  const [filter, setFilter] = useState("All");
+
   const projects = [
     {
       id: "1",
       image: "./lms.png",
       title: "LMS",
+      category: "Full Stack",
       githubLink: "https://github.com/ArinjayBhola/LMS",
       liveUrl: "https://lms-opal-gamma.vercel.app/dashboard",
       description:
@@ -154,6 +68,7 @@ const Project = () => {
       id: "2",
       image: "./taskmanagment.png",
       title: "Task Management",
+      category: "Full Stack",
       githubLink: "https://github.com/ArinjayBhola/Task-Managment",
       liveUrl: "https://task-managment-8ihr.vercel.app/",
       description:
@@ -164,6 +79,7 @@ const Project = () => {
       id: "3",
       image: "./aaolikhen.png",
       title: "Aao Likhen",
+      category: "Full Stack",
       githubLink: "https://github.com/ArinjayBhola/Aao-Likhen",
       liveUrl: "https://aao-likhen.vercel.app/signin",
       description:
@@ -174,6 +90,7 @@ const Project = () => {
       id: "4",
       image: "./netflix.png",
       title: "Netflix Clone",
+      category: "Frontend",
       githubLink: "https://github.com/ArinjayBhola/Netflix-Clone",
       liveUrl: "https://netflix-clone-dun-eta.vercel.app/browse",
       description:
@@ -184,6 +101,7 @@ const Project = () => {
       id: "5",
       image: "./youtube.png",
       title: "YouTube Clone",
+      category: "Frontend",
       githubLink: "https://github.com/ArinjayBhola/Youtube",
       liveUrl: "https://youtube-delta-two.vercel.app/",
       description:
@@ -192,45 +110,65 @@ const Project = () => {
     },
   ];
 
-  return (
-    <section
-      className="w-full px-4 py-20 flex justify-center bg-gradient-to-b from-white/60 via-blue-50/40 dark:from-slate-900/90 dark:via-slate-800/80 to-transparent"
-      id="projects">
-      <div className="w-full max-w-screen-lg flex flex-col items-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.7 }}
-          className="text-3xl sm:text-4xl font-extrabold text-center mb-2 bg-gradient-to-tr from-blue-900 via-teal-500 to-cyan-400 dark:from-blue-200 dark:via-cyan-300 dark:to-teal-200 bg-clip-text text-transparent drop-shadow">
-          Projects
-        </motion.h2>
-        <div className="border-b border-blue-500 dark:border-cyan-700 w-16 my-4 opacity-80"></div>
+  const filteredProjects = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const categories = ["All", "Full Stack", "Frontend"];
 
+  return (
+    <section id="projects" className="py-20 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full place-items-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ staggerChildren: 0.12 }}>
-          {projects.map((p) => (
-            <ProjectCard
-              key={p.id}
-              github={p.githubLink}
-              url={p.liveUrl}
-              title={p.title}
-              description={p.description}
-              image={p.image}
-              stack={p.techStack.map((tech, i) => (
-                <span
-                  key={i}
-                  className="">
-                  <span>{techIcons[tech] || null}</span>
-                  {tech}
-                </span>
-              ))}
-            />
-          ))}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-8" />
+          
+          <div className="flex justify-center gap-4 mb-8">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  filter === cat
+                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence>
+            {filteredProjects.map((p) => (
+              <motion.div
+                layout
+                key={p.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ProjectCard
+                  github={p.githubLink}
+                  url={p.liveUrl}
+                  title={p.title}
+                  description={p.description}
+                  image={p.image}
+                  stack={p.techStack.map((tech, i) => (
+                    <span key={i} className="flex items-center">
+                      {techIcons[tech]} {tech}
+                    </span>
+                  ))}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
@@ -238,3 +176,5 @@ const Project = () => {
 };
 
 export default Project;
+
+
