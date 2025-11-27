@@ -125,7 +125,7 @@ const About = () => {
               >
                 <h4 className="text-xl font-bold mb-4 text-primary border-b border-white/10 pb-2">{category.title}</h4>
                 <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, index) => (
+                  {category.skills.map((skill) => (
                     <div
                       key={skill.name}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-background/40 border border-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 group cursor-default"
