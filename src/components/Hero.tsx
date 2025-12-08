@@ -3,6 +3,15 @@ import { Button } from "./ui/button";
 import { ArrowRight, Download } from "lucide-react";
 
 const Hero = () => {
+  const pdfUrl = "/ArinjayBhola-Resume.pdf";
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "ArinjayBholaResume.pdf";
+    link.click();
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Background Elements */}
@@ -14,8 +23,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-6"
-        >
+          className="mb-6">
           <span className="px-4 py-2 rounded-full glass text-sm font-medium text-primary border border-primary/20">
             Available for Work
           </span>
@@ -25,8 +33,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
-        >
+          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
           Building the <br />
           <span className="text-gradient-primary">Digital Future</span>
         </motion.h1>
@@ -35,31 +42,28 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
-        >
-          I'm Arinjay Bhola, a Full Stack Developer passionate about crafting immersive web experiences with modern technologies.
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10">
+          I'm Arinjay Bhola, a Full Stack Developer passionate about crafting immersive web experiences with modern
+          technologies.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <Button 
-            size="lg" 
+          className="flex flex-col sm:flex-row gap-4">
+          <Button
+            size="lg"
             className="text-lg px-8 py-6 rounded-full group"
-            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-          >
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
             View Projects
             <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
+          <Button
+            size="lg"
+            variant="outline"
             className="text-lg px-8 py-6 rounded-full glass border-white/10 hover:bg-white/10"
-            onClick={() => window.open('/resume.pdf', '_blank')}
-          >
+            onClick={handleDownload}>
             Download CV
             <Download className="ml-2" />
           </Button>
@@ -71,8 +75,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"
-      >
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 rounded-full border-2 border-muted-foreground flex justify-center pt-2">
           <div className="w-1 h-2 bg-muted-foreground rounded-full animate-scroll" />
         </div>
