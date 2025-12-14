@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaDocker } from "react-icons/fa";
 import { SiNextdotjs, SiSpringboot, SiVercel, SiCloudflare, SiTailwindcss } from "react-icons/si";
-import { Briefcase } from "lucide-react";
 
 const techIcons: Record<string, JSX.Element> = {
-  Docker: <FaDocker className="text-sky-500" size={16} />,
-  "React.js": <FaReact className="text-cyan-400" size={16} />,
-  React: <FaReact className="text-cyan-400" size={16} />,
-  "Node.js": <FaNodeJs className="text-green-500" size={16} />,
-  "Next.js": <SiNextdotjs className="text-foreground" size={16} />,
-  "Spring Boot": <SiSpringboot className="text-green-700" size={16} />,
-  Vercel: <SiVercel className="text-foreground" size={16} />,
-  "Cloudflare Workers": <SiCloudflare className="text-orange-400" size={16} />,
-  "Tailwind CSS": <SiTailwindcss className="text-sky-400" size={16} />,
+  Docker: <FaDocker size={14} />,
+  "React.js": <FaReact size={14} />,
+  React: <FaReact size={14} />,
+  "Node.js": <FaNodeJs size={14} />,
+  "Next.js": <SiNextdotjs size={14} />,
+  "Spring Boot": <SiSpringboot size={14} />,
+  Vercel: <SiVercel size={14} />,
+  "Cloudflare Workers": <SiCloudflare size={14} />,
+  "Tailwind CSS": <SiTailwindcss size={14} />,
 };
 
 const Experience = () => {
@@ -44,65 +43,61 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 relative">
+    <section id="experience" className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-16 max-w-2xl"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Experience</h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Careers</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+             My Professional Journey.
+          </h2>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative pl-8 pb-12 last:pb-0 border-l-2 border-white/10 last:border-l-0 ml-4 md:ml-0"
+              className="group relative border-l border-border pl-8 pb-12 last:pb-0"
             >
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary shadow-[0_0_10px_rgba(124,58,237,0.5)]" />
+              <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-primary transition-colors duration-300" />
               
-              <div className="glass-card p-6 rounded-2xl relative -top-2">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
-                    <div className="flex items-center gap-2 text-primary font-medium">
-                      <Briefcase size={16} />
-                      <span>{exp.company}</span>
-                    </div>
-                  </div>
-                  <span className="text-sm text-muted-foreground bg-white/5 px-3 py-1 rounded-full w-fit">
-                    {exp.duration}
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4">
+                <h3 className="text-2xl font-bold text-foreground">{exp.role}</h3>
+                <span className="text-sm font-medium text-muted-foreground whitespace-nowrap mt-1 sm:mt-0">
+                  {exp.duration}
+                </span>
+              </div>
+              
+              <div className="text-lg font-medium text-primary mb-4">{exp.company}</div>
+
+              <ul className="space-y-3 mb-6">
+                {exp.description.map((line, i) => (
+                  <li key={i} className="text-muted-foreground leading-relaxed flex items-start gap-3">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-border shrink-0" />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-2">
+                {exp.technologies.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary rounded text-xs font-medium text-secondary-foreground"
+                  >
+                    {techIcons[tech]}
+                    {tech}
                   </span>
-                </div>
-
-                <ul className="space-y-2 mb-6">
-                  {exp.description.map((line, i) => (
-                    <li key={i} className="text-muted-foreground text-sm leading-relaxed flex items-start gap-2">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium flex items-center gap-1.5 hover:bg-white/10 transition-colors"
-                    >
-                      {techIcons[tech]}
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                ))}
               </div>
             </motion.div>
           ))}

@@ -114,27 +114,29 @@ const Project = () => {
   const categories = ["All", "Full Stack", "Frontend"];
 
   return (
-    <section id="projects" className="py-20 relative">
+    <section id="projects" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-16 max-w-2xl"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-8" />
+          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Portfolio</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">
+             Featured Work.
+          </h2>
           
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   filter === cat
-                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
-                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                    ? "bg-foreground text-background"
+                    : "bg-transparent text-muted-foreground hover:text-foreground border border-border"
                 }`}
               >
                 {cat}
@@ -144,14 +146,14 @@ const Project = () => {
         </motion.div>
 
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((p) => (
               <motion.div
                 layout
                 key={p.id}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
               >
                 <ProjectCard

@@ -1,15 +1,27 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ui/theme-toggle";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
+      
+      const sections = ["home", "about", "projects", "experience", "contact"];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+          }
+        }
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -20,21 +32,24 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMobileMenuOpen(false);
+      setActiveSection(id);
     }
   };
 
   const navLinks = [
     { name: "Home", id: "home" },
     { name: "About", id: "about" },
-    { name: "Experience", id: "experience" },
     { name: "Projects", id: "projects" },
+    { name: "Experience", id: "experience" },
     { name: "Contact", id: "contact" },
   ];
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "py-4 glass" : "py-6 bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+        isScrolled 
+          ? "bg-background/80 backdrop-blur-md border-border/50 py-4 shadow-sm" 
+          : "bg-transparent border-transparent py-6"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -42,12 +57,11 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         <div 
-          className="text-2xl font-bold font-heading cursor-pointer flex items-center gap-2"
+          className="text-xl font-bold font-heading cursor-pointer tracking-tighter relative group"
           onClick={() => scrollToSection("home")}
         >
-          <span className="text-primary">&lt;</span>
           Arinjay Bhola
-          <span className="text-primary">/&gt;</span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
         </div>
 
         {/* Desktop Navigation */}
@@ -56,30 +70,31 @@ const Header = () => {
             <button
               key={link.name}
               onClick={() => scrollToSection(link.id)}
-              className="text-sm font-medium hover:text-primary transition-colors relative group"
+              className={`relative text-sm font-medium transition-colors hover:text-primary ${
+                activeSection === link.id ? "text-primary" : "text-muted-foreground"
+              }`}
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              {activeSection === link.id && (
+                <motion.span
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </button>
           ))}
-          <div className="w-px h-6 bg-border mx-2" />
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/arinjayBhola/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              <Github size={20} />
-            </a>
-            <a href="https://www.linkedin.com/in/arinjay-bhola-755377246/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              <Linkedin size={20} />
-            </a>
+          <div className="flex items-center gap-4 pl-4 border-l border-border/50">
             <ThemeToggle />
           </div>
         </nav>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 hover:bg-accent rounded-full transition-colors"
+          className="md:hidden p-2 text-foreground"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
@@ -90,29 +105,23 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-white/10 overflow-hidden"
+            className="md:hidden bg-background border-b border-border"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+            <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-left py-2 text-lg font-medium hover:text-primary transition-colors"
+                  className={`text-left text-2xl font-heading font-medium transition-colors ${
+                    activeSection === link.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.name}
                 </button>
               ))}
-              <div className="flex items-center gap-6 py-4 border-t border-white/10 mt-2">
-                <a href="https://github.com/arinjayBhola/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                  <Github size={24} />
-                </a>
-                <a href="https://www.linkedin.com/in/arinjay-bhola-755377246/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                  <Linkedin size={24} />
-                </a>
-                <a href="mailto:arinjay26bhola@gmail.com" className="hover:text-primary transition-colors">
-                  <Mail size={24} />
-                </a>
-                <ThemeToggle />
+              <div className="flex justify-between items-center pt-6 border-t border-border">
+                 <span className="text-sm text-muted-foreground">Switch Theme</span>
+                 <ThemeToggle />
               </div>
             </div>
           </motion.div>
@@ -123,4 +132,3 @@ const Header = () => {
 };
 
 export default Header;
-

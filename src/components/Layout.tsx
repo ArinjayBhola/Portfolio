@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuroraBackground } from './ui/aurora-background';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -6,12 +7,14 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
-      <div className="fixed inset-0 -z-10 h-full w-full bg-background [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)] opacity-20"></div>
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        {children}
-      </main>
-    </div>
+    <AuroraBackground>
+      <div className="min-h-screen w-full text-foreground overflow-x-hidden font-body selection:bg-primary/20 selection:text-primary relative z-10">
+        <div className="noise-bg fixed inset-0 z-50 pointer-events-none opacity-[0.03]"></div>
+        <main className="flex-1 w-full relative">
+          {children}
+        </main>
+      </div>
+    </AuroraBackground>
   );
 };
 
