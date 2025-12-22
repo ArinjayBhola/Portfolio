@@ -15,6 +15,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ github, url, title, description, image, stack }: ProjectCardProps) => {
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = React.useState(0);
+  const isHovered = opacity === 1;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!e.currentTarget) return;
@@ -32,6 +33,7 @@ const ProjectCard = ({ github, url, title, description, image, stack }: ProjectC
 
   return (
     <motion.article
+      layout
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -86,7 +88,7 @@ const ProjectCard = ({ github, url, title, description, image, stack }: ProjectC
           </a>
         </div>
         
-        <p className="text-muted-foreground text-sm line-clamp-3 mb-6 leading-relaxed">
+        <p className={`text-muted-foreground text-sm mb-6 leading-relaxed ${isHovered ? '' : 'line-clamp-3'}`}>
           {description}
         </p>
         

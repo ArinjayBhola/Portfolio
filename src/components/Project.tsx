@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaReact, FaDocker, FaLink } from "react-icons/fa";
+import { FaReact, FaDocker, FaLink,FaAws } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -16,7 +16,11 @@ import {
   SiVercel,
   SiDrizzle,
   SiRazorpay,
+  SiLangchain
 } from "react-icons/si";
+import { RiRobot2Line } from "react-icons/ri";
+import { TbVector } from "react-icons/tb";
+
 
 const techIcons: Record<string, JSX.Element> = {
   "Next.js": <SiNextdotjs className="inline mr-1" size={14} />,
@@ -37,6 +41,12 @@ const techIcons: Record<string, JSX.Element> = {
   Docker: <FaDocker className="inline mr-1" size={14} />,
   "Drizzle ORM": <SiDrizzle className="inline mr-1" size={14} />,
   Razorpay: <SiRazorpay className="inline mr-1" size={14} />,
+  "Vercel AI SDK": <FaLink className="inline mr-1" size={14} />,
+  LangChain: <SiLangchain className="inline mr-1" size={14} />,
+  "Hugging Face": <RiRobot2Line className="inline mr-1" size={14} />,
+  Pinecone: <TbVector className="inline mr-1" size={14} />,
+  "AWS S3": <FaAws className="inline mr-1" size={14} />,
+
 };
 
 const Project = () => {
@@ -45,6 +55,27 @@ const Project = () => {
   const projects = [
     {
       id: "1",
+      image: "./pdf-chat.png",
+      title: "PDF-Chat(In Progress - GitHub Available, Live Demo Coming Soon)",
+      category: "Full Stack",
+      githubLink: "https://github.com/ArinjayBhola/Chat-PDF",
+      liveUrl: "https://chat-pdf-beryl.vercel.app/",
+      description:
+        "An AI-driven document chat platform that lets users upload PDFs and images and query their content intelligently. It uses OCR for image-based text extraction, converts documents into vector embeddings with open-source ML models, stores them in a vector database for semantic search, and delivers accurate, context-aware responses through a modern Next.js interface.",
+      techStack: [
+        "Next.js",
+        "Tailwind CSS",
+        "Vercel AI SDK",
+        "Gemini API",
+        "LangChain",
+        "Hugging Face",
+        "Pinecone",
+        "AWS S3",
+        "Clerk",
+      ],
+    },
+    {
+      id: "2",
       image: "./lms.png",
       title: "LMS",
       category: "Full Stack",
@@ -65,7 +96,7 @@ const Project = () => {
       ],
     },
     {
-      id: "2",
+      id: "3",
       image: "./taskmanagment.png",
       title: "Task Management",
       category: "Full Stack",
@@ -76,7 +107,7 @@ const Project = () => {
       techStack: ["React.js", "Tailwind CSS", "Material UI", "PostgreSQL", "Prisma ORM", "Hono", "Redux"],
     },
     {
-      id: "3",
+      id: "4",
       image: "./aaolikhen.png",
       title: "Aao Likhen",
       category: "Full Stack",
@@ -87,7 +118,7 @@ const Project = () => {
       techStack: ["React.js", "Tailwind CSS", "Hono", "PostgreSQL", "Prisma ORM"],
     },
     {
-      id: "4",
+      id: "5",
       image: "./netflix.png",
       title: "Netflix Clone",
       category: "Frontend",
@@ -98,7 +129,7 @@ const Project = () => {
       techStack: ["React.js", "Tailwind CSS", "Firebase", "Gemini API", "TMDB API"],
     },
     {
-      id: "5",
+      id: "6",
       image: "./youtube.png",
       title: "YouTube Clone",
       category: "Frontend",
