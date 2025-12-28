@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaReact, FaDocker, FaLink,FaAws } from "react-icons/fa";
+import { FaReact, FaDocker, FaLink, FaAws } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -16,37 +16,150 @@ import {
   SiVercel,
   SiDrizzle,
   SiRazorpay,
-  SiLangchain
+  SiLangchain,
 } from "react-icons/si";
 import { RiRobot2Line } from "react-icons/ri";
 import { TbVector } from "react-icons/tb";
 
-
 const techIcons: Record<string, JSX.Element> = {
-  "Next.js": <SiNextdotjs className="inline mr-1" size={14} />,
-  React: <FaReact className="inline mr-1" size={14} />,
-  "React.js": <FaReact className="inline mr-1" size={14} />,
-  "Tailwind CSS": <SiTailwindcss className="inline mr-1" size={14} />,
-  PostgreSQL: <SiPostgresql className="inline mr-1" size={14} />,
-  "Prisma ORM": <SiPrisma className="inline mr-1" size={14} />,
-  Redux: <SiRedux className="inline mr-1" size={14} />,
-  Firebase: <SiFirebase className="inline mr-1" size={14} />,
-  "Gemini API": <SiGooglegemini className="inline mr-1" size={14} />,
-  "Material UI": <SiMui className="inline mr-1" size={14} />,
-  Hono: <SiHono className="inline mr-1" size={14} />,
-  Inngest: <FaLink className="inline mr-1" size={14} />,
-  Clerk: <SiClerk className="inline mr-1" size={14} />,
-  "TMDB API": <FaLink className="inline mr-1" size={14} />,
-  Vercel: <SiVercel className="inline mr-1" size={14} />,
-  Docker: <FaDocker className="inline mr-1" size={14} />,
-  "Drizzle ORM": <SiDrizzle className="inline mr-1" size={14} />,
-  Razorpay: <SiRazorpay className="inline mr-1" size={14} />,
-  "Vercel AI SDK": <FaLink className="inline mr-1" size={14} />,
-  LangChain: <SiLangchain className="inline mr-1" size={14} />,
-  "Hugging Face": <RiRobot2Line className="inline mr-1" size={14} />,
-  Pinecone: <TbVector className="inline mr-1" size={14} />,
-  "AWS S3": <FaAws className="inline mr-1" size={14} />,
-
+  "Next.js": (
+    <SiNextdotjs
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  React: (
+    <FaReact
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "React.js": (
+    <FaReact
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Tailwind CSS": (
+    <SiTailwindcss
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  PostgreSQL: (
+    <SiPostgresql
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Prisma ORM": (
+    <SiPrisma
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Redux: (
+    <SiRedux
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Firebase: (
+    <SiFirebase
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Gemini API": (
+    <SiGooglegemini
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Material UI": (
+    <SiMui
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Hono: (
+    <SiHono
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Inngest: (
+    <FaLink
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Clerk: (
+    <SiClerk
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "TMDB API": (
+    <FaLink
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Vercel: (
+    <SiVercel
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Docker: (
+    <FaDocker
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Drizzle ORM": (
+    <SiDrizzle
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Razorpay: (
+    <SiRazorpay
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Vercel AI SDK": (
+    <FaLink
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  LangChain: (
+    <SiLangchain
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "Hugging Face": (
+    <RiRobot2Line
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  Pinecone: (
+    <TbVector
+      className="inline mr-1"
+      size={14}
+    />
+  ),
+  "AWS S3": (
+    <FaAws
+      className="inline mr-1"
+      size={14}
+    />
+  ),
 };
 
 const Project = () => {
@@ -56,7 +169,7 @@ const Project = () => {
     {
       id: "1",
       image: "./pdf-chat.png",
-      title: "PDF-Chat(In Progress - GitHub Available, Live Demo Coming Soon)",
+      title: "PDF-Chat",
       category: "Full Stack",
       githubLink: "https://github.com/ArinjayBhola/Chat-PDF",
       liveUrl: "https://chat-pdf-beryl.vercel.app/",
@@ -145,20 +258,19 @@ const Project = () => {
   const categories = ["All", "Full Stack", "Frontend"];
 
   return (
-    <section id="projects" className="py-24 bg-secondary/30">
+    <section
+      id="projects"
+      className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16 max-w-2xl"
-        >
+          className="mb-16 max-w-2xl">
           <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Portfolio</span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">
-             Featured Work.
-          </h2>
-          
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Featured Work.</h2>
+
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
@@ -168,15 +280,16 @@ const Project = () => {
                   filter === cat
                     ? "bg-foreground text-background"
                     : "bg-transparent text-muted-foreground hover:text-foreground border border-border"
-                }`}
-              >
+                }`}>
                 {cat}
               </button>
             ))}
           </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((p) => (
               <motion.div
@@ -185,8 +298,7 @@ const Project = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-              >
+                transition={{ duration: 0.3 }}>
                 <ProjectCard
                   github={p.githubLink}
                   url={p.liveUrl}
@@ -194,7 +306,9 @@ const Project = () => {
                   description={p.description}
                   image={p.image}
                   stack={p.techStack.map((tech, i) => (
-                    <span key={i} className="flex items-center">
+                    <span
+                      key={i}
+                      className="flex items-center">
                       {techIcons[tech]} {tech}
                     </span>
                   ))}
@@ -209,5 +323,3 @@ const Project = () => {
 };
 
 export default Project;
-
-
