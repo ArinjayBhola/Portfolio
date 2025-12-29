@@ -174,7 +174,7 @@ const Project = () => {
       githubLink: "https://github.com/ArinjayBhola/Chat-PDF",
       liveUrl: "https://chat-pdf-beryl.vercel.app/",
       description:
-        "An AI-driven document chat platform that lets users upload PDFs and images and query their content intelligently. It uses OCR for image-based text extraction, converts documents into vector embeddings with open-source ML models, stores them in a vector database for semantic search, and delivers accurate, context-aware responses through a modern Next.js interface.",
+        "An AI-driven document chat platform that lets users upload PDFs and images and query their content intelligently. It uses Tesseract OCR for image-based text extraction, converts documents into vector embeddings with open-source ML model of Nomic AI (nomic-ai/nomic-embed-text-v1), stores them in a vector database for semantic search, and delivers accurate, context-aware responses through a modern Next.js interface.",
       techStack: [
         "Next.js",
         "Tailwind CSS",
