@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { ArrowRight, Download } from "lucide-react";
 
 const Hero = () => {
-  const pdfUrl = "/ArinjayBhola-Resume.pdf";
+  const pdfUrl = "/ArinjayBhola-CV.pdf";
 
   const handleDownload = () => {
     const link = document.createElement("a");
