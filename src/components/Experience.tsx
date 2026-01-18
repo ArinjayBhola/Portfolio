@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaDocker } from "react-icons/fa";
-import { SiNextdotjs, SiSpringboot, SiVercel, SiCloudflare, SiTailwindcss } from "react-icons/si";
+import { SiNextdotjs, SiSpringboot, SiVercel, SiCloudflare, SiTailwindcss, SiPostgresql } from "react-icons/si";
 
 const techIcons: Record<string, JSX.Element> = {
   Docker: <FaDocker size={14} />,
@@ -12,21 +12,32 @@ const techIcons: Record<string, JSX.Element> = {
   Vercel: <SiVercel size={14} />,
   "Cloudflare Workers": <SiCloudflare size={14} />,
   "Tailwind CSS": <SiTailwindcss size={14} />,
+  PostgreSQL: <SiPostgresql size={14} />,
 };
 
 const Experience = () => {
   const experiences = [
     {
-      role: "Freelance Full Stack Developer",
-      company: "Remote",
-      duration: "May 2025 – Present",
+      role: "Full Stack Developer Intern",
+      company: "Mittal Gupta and Co.",
+      duration: "Aug 2025 - Oct 2025",
       description: [
-        "Collaborated with clients to build custom web applications tailored to business needs using modern full stack technologies.",
-        "Designed scalable and responsive UIs using React and Tailwind CSS.",
-        "Built backend APIs with Node.js and deployed solutions using platforms like Vercel and Cloudflare Workers.",
-        "Maintained communication with clients and delivered high-quality solutions on tight timelines.",
+        "Integrated frontend applications with backend services to handle authentication, permissions, and secure data access across multiple user roles.",
+        "Collaborated to break down real business problems into technical tasks and deliver features incrementally under guidance.",
+        "Optimized secure data access across multiple user roles, ensuring data integrity and compliance.",
       ],
-      technologies: ["Next.js", "React", "Node.js", "Tailwind CSS", "Vercel", "Cloudflare Workers"],
+      technologies: ["React", "Node.js"],
+    },
+    {
+      role: "Full Stack Developer Intern",
+      company: "Ginete Technologies Pvt. Ltd.",
+      duration: "May 2025 - Aug 2025",
+      description: [
+        "Architected and delivered domain-specific full-stack applications, including internal HR tools and business workflow platforms.",
+        "Designed and implemented RESTful APIs, database schemas, and document-handling pipelines using React, Next.js, Node.js, and PostgreSQL.",
+        "Owned end-to-end development and deployment, translating business processes into scalable, production-ready systems.",
+      ],
+      technologies: ["Next.js", "React", "Node.js", "PostgreSQL"],
     },
     {
       role: "Software Engineering Intern",

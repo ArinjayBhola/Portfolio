@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Eye } from "lucide-react";
 
 const Hero = () => {
   const pdfUrl = "/ArinjayBhola-CV.pdf";
@@ -10,6 +10,10 @@ const Hero = () => {
     link.href = pdfUrl;
     link.download = "ArinjayBholaResume.pdf";
     link.click();
+  };
+
+  const handleView = () => {
+    window.open(pdfUrl, "_blank");
   };
 
   const letterAnimation = {
@@ -129,6 +133,15 @@ const Hero = () => {
             >
               Download CV
               <Download className="ml-2 w-5 h-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-7 rounded-full border-border hover:bg-secondary transition-transform hover:scale-105 active:scale-95 bg-background/50 backdrop-blur-sm"
+              onClick={handleView}
+            >
+              View CV
+              <Eye className="ml-2 w-5 h-5" />
             </Button>
           </motion.div>
         </div>

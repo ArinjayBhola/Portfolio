@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaReact, FaDocker, FaLink, FaAws } from "react-icons/fa";
@@ -163,8 +162,6 @@ const techIcons: Record<string, JSX.Element> = {
 };
 
 const Project = () => {
-  const [filter, setFilter] = useState("All");
-
   const projects = [
     {
       id: "1",
@@ -174,7 +171,7 @@ const Project = () => {
       githubLink: "https://github.com/ArinjayBhola/Chat-PDF",
       liveUrl: "https://chat-pdf-beryl.vercel.app/",
       description:
-        "An AI-driven document chat platform that lets users upload PDFs and images and query their content intelligently. It uses Tesseract OCR for image-based text extraction, converts documents into vector embeddings with open-source ML model of Nomic AI (nomic-ai/nomic-embed-text-v1), stores them in a vector database for semantic search, and delivers accurate, context-aware responses through a modern Next.js interface.",
+        "An AI-driven document chat platform that lets users upload PDFs and images and query their content intelligently. It uses Tesseract OCR for image-based text extraction, converts documents into vector embeddings with Gemini AI(text-embedding-004), stores them in a vector database(Pinecone) for semantic search, and delivers accurate, context-aware responses through a modern Next.js interface.",
       techStack: [
         "Next.js",
         "Tailwind CSS",
@@ -184,7 +181,7 @@ const Project = () => {
         "Hugging Face",
         "Pinecone",
         "AWS S3",
-        "Clerk",
+        "NextAuth",
       ],
     },
     {
@@ -254,8 +251,7 @@ const Project = () => {
     },
   ];
 
-  const filteredProjects = filter === "All" ? projects : projects.filter((p) => p.category === filter);
-  const categories = ["All", "Full Stack", "Frontend"];
+
 
   return (
     <section
@@ -270,28 +266,12 @@ const Project = () => {
           className="mb-16 max-w-2xl">
           <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Portfolio</span>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Featured Work.</h2>
-
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  filter === cat
-                    ? "bg-foreground text-background"
-                    : "bg-transparent text-muted-foreground hover:text-foreground border border-border"
-                }`}>
-                {cat}
-              </button>
-            ))}
-          </div>
         </motion.div>
 
         <motion.div
-          layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((p) => (
+            {projects.map((p) => (
               <motion.div
                 layout
                 key={p.id}
