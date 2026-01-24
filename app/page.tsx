@@ -1,13 +1,13 @@
-import Layout from "./components/Layout";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Experience from "./components/Experience";
-import Project from "./components/Project";
-import Contact from "./components/Contact";
+import Layout from "../components/Layout";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import Experience from "../components/Experience";
+import Project from "../components/Project";
+import Contact from "../components/Contact";
 
-function App() {
+export default function Home() {
   return (
     <Layout>
       <Header />
@@ -30,5 +30,3 @@ function App() {
     </Layout>
   );
 }
-
-export default App;
