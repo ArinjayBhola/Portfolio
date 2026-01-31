@@ -1,6 +1,9 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import { db } from "../lib/db/index";
+import { visitors } from "../lib/db/schema";
+import { eq, desc, inArray } from "drizzle-orm";
 
 export async function sendEmail(formData: { user_name: string; user_email: string; message: string }) {
   const { user_name, user_email, message } = formData;
@@ -30,5 +33,44 @@ export async function sendEmail(formData: { user_name: string; user_email: strin
   } catch (error) {
     console.error("Nodemailer Error:", error);
     return { success: false, message: "Failed to send email." };
+  }
+}
+
+export async function getVisitors() {
+  try {
+    return await db.select().from(visitors).orderBy(desc(visitors.visitedAt));
+  } catch (error) {
+    console.error("Error fetching visitors:", error);
+    return [];
+  }
+}
+
+export async function deleteVisitor(id: number) {
+  try {
+    await db.delete(visitors).where(eq(visitors.id, id));
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting visitor:", error);
+    return { success: false };
+  }
+}
+
+export async function deleteVisitorsBulk(ids: number[]) {
+  try {
+    await db.delete(visitors).where(inArray(visitors.id, ids));
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting visitors bulk:", error);
+    return { success: false };
+  }
+}
+
+export async function clearAllVisitors() {
+  try {
+    await db.delete(visitors);
+    return { success: true };
+  } catch (error) {
+    console.error("Error clearing visitors:", error);
+    return { success: false };
   }
 }
