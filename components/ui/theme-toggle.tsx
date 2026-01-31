@@ -26,6 +26,7 @@ export function ThemeToggle() {
             <Moon
               size={22}
               strokeWidth={2}
+              suppressHydrationWarning
             />
           </motion.span>
         ) : (
