@@ -21,7 +21,7 @@ export default function AdminPage() {
     // Simulate a brief delay for a better UX feeling of "authenticating"
     await new Promise(resolve => setTimeout(resolve, 600));
 
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+    if (password === process.env.NEXT_ADMIN_PASSWORD) {
       setIsAuthorized(true);
       setError("");
     } else {
