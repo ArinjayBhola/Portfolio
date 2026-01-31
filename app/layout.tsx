@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.css"
 import { ThemeProvider } from "../lib/theme-provider";
 
 export const metadata: Metadata = {
@@ -7,11 +7,15 @@ export const metadata: Metadata = {
   description: "Full Stack Developer focused on building clean, scalable, and user-centric web applications.",
 };
 
-export default function RootLayout({
+import { trackVisitor } from "../lib/visitor";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await trackVisitor();
+
   return (
     <html lang="en">
       <body className="antialiased">
