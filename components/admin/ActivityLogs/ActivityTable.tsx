@@ -46,25 +46,26 @@ export function ActivityTable({
   onItemsPerPageChange
 }: ActivityTableProps) {
   return (
-    <div className="bg-white rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-xl">
+    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl transition-colors duration-500">
       <div className="overflow-x-auto scroller-indigo">
         <table className="w-full text-left min-w-[800px]">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-100">
+            <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
               <th className="px-6 md:px-8 py-6 w-12 text-center">
                 <Checkbox
                   checked={visitors.length > 0 && selectedIds.length === visitors.length}
                   onCheckedChange={onToggleSelectAll}
-                  className="w-5 h-5 rounded-md border-slate-200 bg-white data-[state=checked]:bg-white data-[state=checked]:text-slate-900 data-[state=checked]:border-slate-300 transition-all duration-300"
+                  className="w-5 h-5 rounded-md border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 data-[state=checked]:bg-white dark:data-[state=checked]:bg-slate-800 data-[state=checked]:text-slate-900 dark:data-[state=checked]:text-slate-100 data-[state=checked]:border-slate-300 dark:data-[state=checked]:border-slate-700 transition-all duration-300"
                 />
               </th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Time</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">IP Address</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Location</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right pr-12">Actions</th>
+              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Time</th>
+              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">IP Address</th>
+              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Location</th>
+              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Network</th>
+              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] text-right pr-12">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-50">
+          <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
             <AnimatePresence mode="popLayout">
               {paginatedVisitors.map((group) => (
                 <ActivityRow
@@ -83,10 +84,10 @@ export function ActivityTable({
 
             {!loading && visitors.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-8 py-32 text-center">
-                  <div className="flex flex-col items-center gap-4 opacity-5">
-                    <Globe className="w-20 h-20 text-slate-900" />
-                    <p className="text-sm font-black uppercase tracking-[0.5em] text-slate-900">No Activity Detected</p>
+                <td colSpan={6} className="px-8 py-32 text-center">
+                  <div className="flex flex-col items-center gap-4 opacity-5 dark:opacity-10">
+                    <Globe className="w-20 h-20 text-slate-900 dark:text-white" />
+                    <p className="text-sm font-black uppercase tracking-[0.5em] text-slate-900 dark:text-white">No Activity Detected</p>
                   </div>
                 </td>
               </tr>

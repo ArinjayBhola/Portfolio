@@ -8,5 +8,6 @@ export const visitors = pgTable("visitors", {
   country: text("country"),
   loc: text("loc"),
   org: text("org"),
+  userAgent: text("user_agent"),
   visitedAt: timestamp("visited_at").defaultNow().notNull(),
 });

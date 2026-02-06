@@ -31,25 +31,25 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8 bg-white border border-slate-200 shadow-2xl">
+      <DialogContent className="sm:max-w-[400px] rounded-[2rem] p-8 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xl transition-colors duration-300">
         <DialogTitle className="sr-only">{title}</DialogTitle>
         <div className="flex flex-col items-center text-center space-y-4">
-          <div className={`w-16 h-16 ${variant === 'destructive' ? 'bg-red-50' : 'bg-indigo-50'} rounded-2xl flex items-center justify-center mb-2`}>
+          <div className={`w-16 h-16 ${variant === 'destructive' ? 'bg-red-50 dark:bg-red-500/10' : 'bg-indigo-50 dark:bg-indigo-500/10'} rounded-2xl flex items-center justify-center mb-2`}>
             {variant === 'destructive' ? (
-              <Trash2 className="w-8 h-8 text-red-600" />
+              <Trash2 className="w-8 h-8 text-red-600 dark:text-red-500" />
             ) : (
-              <AlertTriangle className="w-8 h-8 text-indigo-600" />
+              <AlertTriangle className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
             )}
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-bold text-slate-900 font-heading">{title}</h3>
-            <p className="text-sm text-slate-500">{description}</p>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 font-heading">{title}</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
           </div>
           <div className="flex w-full gap-3 pt-4">
             <Button
               variant="secondary"
               onClick={() => onOpenChange(false)}
-              className="flex-1 h-12 rounded-xl font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 border-none transition-all duration-300"
+              className="flex-1 h-12 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 border-none transition-all duration-300"
             >
               Cancel
             </Button>
