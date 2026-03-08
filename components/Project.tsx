@@ -16,7 +16,7 @@ const Project = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="mb-16 max-w-2xl">
-          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Portfolio</span>
+          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Projects</span>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Featured Work.</h2>
         </motion.div>
 
