@@ -5,6 +5,7 @@ import { techIcons } from "../lib/data";
 
 interface ExperienceItemProps {
   exp: {
+    slug: string;
     role: string;
     company: string;
     duration: string;
@@ -17,6 +18,7 @@ interface ExperienceItemProps {
 const ExperienceItem = ({ exp, index }: ExperienceItemProps) => {
   return (
     <motion.div
+      id={`experience-${exp.slug}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

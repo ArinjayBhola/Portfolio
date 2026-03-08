@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { BorderBeam } from "./ui/border-beam";
 
 interface ProjectCardProps {
+  id: string;
   github: string;
   url: string;
   title: string;
@@ -13,7 +14,7 @@ interface ProjectCardProps {
   stack: React.ReactNode[];
 }
 
-const ProjectCard = ({ github, url, title, description, image, stack }: ProjectCardProps) => {
+const ProjectCard = ({ id, github, url, title, description, image, stack }: ProjectCardProps) => {
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = React.useState(0);
   const isHovered = opacity === 1;
@@ -34,6 +35,7 @@ const ProjectCard = ({ github, url, title, description, image, stack }: ProjectC
 
   return (
     <motion.article
+      id={`project-${id}`}
       layout
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

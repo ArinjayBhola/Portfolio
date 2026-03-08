@@ -39,10 +39,11 @@ export async function chatWithGemini(
     systemInstruction: SYSTEM_PROMPT + `
 EXTREMELY IMPORTANT - MANDATORY BEHAVIOR:
 1. If the user asks about Arinjay's work, experience, skills, or projects, YOU MUST CALL 'navigate_to_section' in the same response.
-2. DO NOT wait for a follow-up. Provide your brief textual summary AND the tool call AT THE SAME TIME.
-3. Your response MUST be a mix of helpful text and the appropriate tool call.
-4. If you mention a specific project, call 'highlight_element' if you can determine a selector (e.g., "#projects").
-5. The section IDs available are: 'home', 'about', 'experience', 'projects', 'contact'.
+2. If the user asks about a SPECIFIC project or experience (e.g., "tell me about PDF-Chat"), find its ID in the dynamic context (e.g., "project-1", "experience-mittal-gupta") and call 'navigate_to_section' with that specific ID.
+3. DO NOT wait for a follow-up. Provide your brief textual summary AND the tool call AT THE SAME TIME.
+4. Your response MUST be a mix of helpful text and the appropriate tool call.
+5. If you mention a specific project, call 'highlight_element' with its selector (e.g., "#project-1").
+6. The major section IDs are: 'home', 'about', 'experience', 'projects', 'contact'.
 `,
   });
 

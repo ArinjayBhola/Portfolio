@@ -145,6 +145,7 @@ export const projects = [
 
 export const experiences = [
   {
+    slug: "mittal-gupta",
     role: "Full Stack Developer Intern",
     company: "Mittal Gupta and Co.",
     duration: "Aug 2025 - Oct 2025",
@@ -156,6 +157,7 @@ export const experiences = [
     technologies: ["React", "Node.js"],
   },
   {
+    slug: "ginete-technologies",
     role: "Full Stack Developer Intern",
     company: "Ginete Technologies Pvt. Ltd.",
     duration: "May 2025 - Aug 2025",
@@ -167,6 +169,7 @@ export const experiences = [
     technologies: ["Next.js", "React", "Node.js", "PostgreSQL"],
   },
   {
+    slug: "codehop-interfusion",
     role: "Software Engineering Intern",
     company: "Codehop Interfusion Pvt. Ltd",
     duration: "June 2024 – September 2024",

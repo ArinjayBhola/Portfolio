@@ -5,17 +5,19 @@
 
 export interface PageContent {
   sections: Array<{ id: string; title: string; text: string }>;
-  projects: Array<{ title: string; description: string }>;
+  projects: Array<{ id: string; title: string; description: string }>;
+  experiences: Array<{ id: string; role: string; company: string }>;
   skills: string[];
   links: Array<{ text: string; id?: string; className?: string }>;
   inputs: Array<{ name: string; placeholder: string; id: string }>;
 }
 
 export const extractPageContent = (): PageContent => {
-  if (typeof window === 'undefined') return { sections: [], projects: [], skills: [], links: [], inputs: [] };
+  if (typeof window === 'undefined') return { sections: [], projects: [], experiences: [], skills: [], links: [], inputs: [] };
 
   const sections: PageContent['sections'] = [];
   const projects: PageContent['projects'] = [];
+  const experiences: PageContent['experiences'] = [];
   const skills: string[] = [];
   const links: PageContent['links'] = [];
   const inputs: PageContent['inputs'] = [];
@@ -35,12 +37,24 @@ export const extractPageContent = (): PageContent => {
   });
 
   // Extract projects (looking for common patterns in ProjectCard)
-  const projectArticles = document.querySelectorAll('article');
+  const projectArticles = document.querySelectorAll('article[id^="project-"]');
   projectArticles.forEach((article) => {
+    const id = article.id;
     const title = article.querySelector('h3')?.textContent?.trim() || '';
     const description = article.querySelector('p')?.textContent?.trim() || '';
     if (title) {
-        projects.push({ title, description });
+        projects.push({ id, title, description });
+    }
+  });
+
+  // Extract experiences
+  const experienceElements = document.querySelectorAll('div[id^="experience-"]');
+  experienceElements.forEach((exp) => {
+    const id = exp.id;
+    const role = exp.querySelector('h3')?.textContent?.trim() || '';
+    const company = exp.querySelector('div.text-primary')?.textContent?.trim() || '';
+    if (role) {
+      experiences.push({ id, role, company });
     }
   });
 
@@ -81,6 +95,7 @@ export const extractPageContent = (): PageContent => {
   return {
     sections,
     projects,
+    experiences,
     skills,
     links,
     inputs

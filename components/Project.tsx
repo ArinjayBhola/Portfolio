@@ -31,6 +31,7 @@ const Project = () => {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}>
                 <ProjectCard
+                  id={p.id}
                   github={p.githubLink}
                   url={p.liveUrl}
                   title={p.title}
