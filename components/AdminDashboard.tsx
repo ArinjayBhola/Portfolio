@@ -251,11 +251,11 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 text-slate-900 dark:text-slate-100 p-4 md:p-8 pt-24 font-[Inter] relative overflow-hidden selection:bg-indigo-100 dark:selection:bg-indigo-500/30 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-500">
+    <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-24 font-[Inter] relative overflow-hidden selection:bg-secondary/30 selection:text-foreground transition-colors duration-500">
       {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full quartz-grid-pattern text-slate-500/5 dark:text-slate-400/5 pointer-events-none" />
-      <div className="absolute top-[-10%] right-[-5%] w-[30%] h-[30%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full quartz-grid-pattern text-border/20 pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-5%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto space-y-10 relative z-10">
         
@@ -291,13 +291,13 @@ export default function AdminDashboard() {
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-heading">Recent Activity</h2>
-              <div className="h-px w-12 bg-slate-200 dark:bg-slate-800" />
+              <h2 className="text-2xl font-bold text-foreground font-heading">Recent Activity</h2>
+              <div className="h-px w-12 bg-border/40" />
               {selectedIds.length > 0 && (
                 <button
                   onClick={() => setShowConfirmBulkDelete(true)}
                   disabled={isActionInProgress}
-                  className="h-9 px-6 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-full shadow-lg shadow-red-500/10 flex items-center gap-2 transition-all duration-300"
+                  className="h-9 px-6 bg-destructive hover:bg-destructive/90 text-destructive-foreground text-xs font-semibold rounded-full shadow-lg shadow-destructive/10 flex items-center gap-2 transition-all duration-300"
                 >
                   {isActionInProgress ? "Deleting..." : `Delete Selected (${selectedIds.length})`}
                 </button>

@@ -60,7 +60,7 @@ const Hero = () => {
               <div className="overflow-hidden">
                 <motion.span
                   variants={letterAnimation}
-                  className="inline-block bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
+                  className="inline-block text-foreground">
                   Creating
                 </motion.span>
               </div>
@@ -72,7 +72,7 @@ const Hero = () => {
                 </motion.span>{" "}
                 <motion.span
                   variants={letterAnimation}
-                  className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-x bg-[length:200%_auto]">
+                  className="inline-block text-primary">
                   Value.
                 </motion.span>
               </div>

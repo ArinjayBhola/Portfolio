@@ -47,6 +47,7 @@ export const techIcons: Record<string, React.ReactNode> = {
   "Hugging Face": <RiRobot2Line size={14} />,
   Pinecone: <TbVector size={14} />,
   "AWS S3": <FaAws size={14} />,
+  "React Native": <FaReact size={14} />,
 };
 
 export const projects = [
@@ -144,6 +145,18 @@ export const projects = [
 ];
 
 export const experiences = [
+  {
+    slug: "pan-earth",
+    role: "Full Stack Developer Intern",
+    company: "Pan Earth Pvt. Ltd.",
+    duration: "Jan 2026 - Ongoing",
+    description: [
+      "Architected and engineered a comprehensive cross-platform expense management ecosystem, integrating a Next.js web portal with a React Native mobile application for real-time synchronization.",
+      "Developed a high-performance serverless backend utilizing Hono and Cloudflare Workers, ensuring ultra-low latency and global scalability across all client platforms.",
+      "Engineered a robust Role-Based Access Control (RBAC) system with multi-tier authorization, securing sensitive financial data and scoping access for diverse user personas.",
+    ],
+    technologies: ["Next.js", "React Native", "Hono", "Cloudflare Workers"],
+  },
   {
     slug: "mittal-gupta",
     role: "Full Stack Developer Intern",
