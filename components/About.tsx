@@ -107,10 +107,10 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16 max-w-2xl">
-          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">About Me</span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">Engineering robust solutions.</h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
+          className="mb-12">
+          <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">About Me</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Engineering robust solutions.</h2>
+          <p className="text-muted-foreground text-base leading-relaxed max-w-2xl">
             I'm a passionate Full Stack Developer with a strong foundation in building scalable web applications. My
             journey in tech is driven by a curiosity to understand how things work and a desire to create solutions that
             make a difference. I specialize in the MERN stack and have experience with cloud technologies and AI
@@ -118,28 +118,40 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-background border border-border p-6 hover:shadow-lg transition-shadow duration-300">
-              <h3 className="text-lg font-bold mb-4">{category.title}</h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-secondary text-secondary-foreground rounded text-sm hover:bg-primary hover:text-primary-foreground transition-colors">
-                    {skill.icon}
-                    <span>{skill.name}</span>
-                  </div>
-                ))}
+        {/* Dual Horizontal Marquee Section */}
+        <div className="relative mt-12 space-y-6 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden py-10">
+          {[0, 1].map((lineIndex) => {
+            const allSkills = skillCategories.flatMap(c => c.skills);
+            // Distribute even/odd
+            const lineSkills = allSkills.filter((_, i) => i % 2 === lineIndex);
+            // Duplicate for infinite effect
+            const displaySkills = [...lineSkills, ...lineSkills, ...lineSkills, ...lineSkills];
+            
+            const isReverse = lineIndex === 1;
+
+            return (
+              <div key={lineIndex} className="flex overflow-hidden">
+                <div className={`flex gap-6 whitespace-nowrap px-4 w-max ${isReverse ? "animate-marquee-horizontal-reverse" : "animate-marquee-horizontal"}`}>
+                  {displaySkills.map((skill, i) => (
+                    <div
+                      key={`${skill.name}-${i}`}
+                      className="flex items-center gap-3 px-6 py-4 bg-background border border-border/50 rounded-2xl group hover:border-primary/50 transition-all duration-300">
+                      <div className="text-2xl text-primary transition-transform group-hover:scale-110 duration-500">
+                        {skill.icon}
+                      </div>
+                      <span className="text-sm font-bold tracking-tight opacity-80 group-hover:opacity-100">
+                        {skill.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
+
+          {/* Masking Fades */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         </div>
       </div>
     </section>

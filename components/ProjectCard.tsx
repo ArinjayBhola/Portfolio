@@ -14,85 +14,83 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ id, github, url, title, description, image, stack }: ProjectCardProps) => {
-  const [opacity, setOpacity] = React.useState(0);
-  const isHovered = opacity === 1;
-
-  const handleMouseEnter = () => {
-    setOpacity(1);
-  };
-
-  const handleMouseLeave = () => {
-    setOpacity(0);
-  };
-
   return (
-    <motion.article
-      id={`project-${id}`}
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="group flex flex-col h-full bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 relative">
-      <div className="relative aspect-video overflow-hidden bg-muted">
+    <article className="group relative flex flex-col h-full bg-background border border-border/60 rounded-3xl overflow-hidden transition-all duration-500 hover:border-primary/40 hover:shadow-2xl">
+      {/* Visual Header */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700"
+          priority={parseInt(id) <= 3}
         />
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-          <a
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-white text-black rounded-full hover:scale-110 transition-transform"
-            aria-label="View source on GitHub">
-            <Github size={20} />
-          </a>
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-white text-black rounded-full hover:scale-110 transition-transform"
-            aria-label="Visit live project">
-            <ExternalLink size={20} />
-          </a>
-        </div>
+        {/* Subtle Gradient Shadow */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60" />
       </div>
 
-      <div className="p-6 flex flex-col flex-1 relative z-10">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="text-xl font-bold tracking-tight">{title}</h3>
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-colors">
-            <ArrowUpRight size={18} />
-          </a>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/5 px-2 py-0.5 rounded-full border border-primary/10">
+            0{id}
+          </span>
         </div>
 
-        <p className={`text-muted-foreground text-sm mb-6 leading-relaxed ${isHovered ? "" : "line-clamp-3"}`}>
+        <h3 className="text-lg font-black tracking-tight mb-2 group-hover:text-primary transition-colors">
+          {title}
+        </h3>
+
+        <p className="text-muted-foreground text-[11px] leading-relaxed line-clamp-2 mb-4 group-hover:text-foreground/80 transition-colors">
           {description}
         </p>
 
-        <div className="mt-auto pt-4 border-t border-border/50">
-          <div className="flex flex-wrap gap-2">
-            {stack.map((tech, index) => (
-              <span
-                key={index}
-                className="text-xs font-medium px-2 py-1 bg-secondary text-secondary-foreground rounded-md">
-                {tech}
-              </span>
-            ))}
+        {/* Tech Stack - Compact Grid */}
+        <div className="flex flex-wrap gap-1.5 mb-6">
+          {stack.slice(0, 4).map((tech, index) => (
+            <span
+              key={index}
+              className="text-[9px] font-semibold px-2 py-0.5 bg-secondary/50 text-foreground/70 rounded-md border border-border/40">
+              {tech}
+            </span>
+          ))}
+          {stack.length > 4 && (
+             <span className="text-[9px] font-semibold px-2 py-0.5 bg-secondary/30 text-foreground/50 rounded-md">
+               +{stack.length - 4}
+             </span>
+          )}
+        </div>
+
+        {/* Footer Actions */}
+        <div className="mt-auto pt-4 border-t border-border/30 flex items-center justify-between">
+          <div className="flex gap-4">
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label="GitHub">
+              <Github size={16} />
+            </a>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label="Live Demo">
+              <ExternalLink size={16} />
+            </a>
           </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, x: -10 }}
+            whileHover={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-1 text-[10px] font-bold text-primary uppercase tracking-tighter cursor-pointer">
+            View Details <ArrowUpRight size={12} />
+          </motion.div>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };
 

@@ -50,7 +50,7 @@ const Header = () => {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border/50 py-4 shadow-sm"
+          ? "scrolled-header border-border/50 py-4 shadow-sm"
           : "bg-transparent border-transparent py-6"
       }`}
       initial={{ y: -100 }}
@@ -103,7 +103,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border">
+            className="md:hidden bg-background/98 backdrop-blur-xl border-b border-border shadow-2xl">
             <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
               {navLinks.map((link) => (
                 <button

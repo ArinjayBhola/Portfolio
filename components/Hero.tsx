@@ -56,7 +56,7 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
             className="mb-10">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9]">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]">
               <div className="overflow-hidden">
                 <motion.span
                   variants={letterAnimation}
@@ -103,7 +103,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-7 rounded-full border-border hover:bg-secondary transition-transform hover:scale-105 active:scale-95 bg-background/50 backdrop-blur-sm"
+              className="text-lg px-8 py-7 rounded-full border-border hover:bg-secondary hover:text-secondary-foreground transition-transform hover:scale-105 active:scale-95 bg-background/50 backdrop-blur-sm"
               onClick={handleDownload}>
               Download CV
               <Download className="ml-2 w-5 h-5" />
@@ -111,7 +111,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-7 rounded-full border-border hover:bg-secondary transition-transform hover:scale-105 active:scale-95 bg-background/50 backdrop-blur-sm"
+              className="text-lg px-8 py-7 rounded-full border-border hover:bg-secondary hover:text-secondary-foreground transition-transform hover:scale-105 active:scale-95 bg-background/50 backdrop-blur-sm"
               onClick={handleView}>
               View CV
               <Eye className="ml-2 w-5 h-5" />

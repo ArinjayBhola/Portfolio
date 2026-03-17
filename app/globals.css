@@ -90,9 +90,22 @@
   }
 
   /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  .animate-marquee-vertical-reverse {
+    animation: marquee-vertical 50s linear infinite reverse;
+  }
+
+  /* Horizontal Marquee Animations */
+  @keyframes marquee-horizontal {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-marquee-horizontal {
+    animation: marquee-horizontal 80s linear infinite;
+  }
+
+  .animate-marquee-horizontal-reverse {
+    animation: marquee-horizontal 70s linear infinite reverse;
   }
 
   ::-webkit-scrollbar-track {
@@ -111,8 +124,20 @@
 }
 
 @layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
   .glass {
     @apply bg-white/40 dark:bg-black/40 backdrop-blur-md border border-black/5 dark:border-white/5;
+  }
+
+  .scrolled-header {
+    background-color: hsl(var(--background) / 0.95) !important;
+    backdrop-filter: blur(12px) !important;
   }
 
   .section-padding {

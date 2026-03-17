@@ -10,20 +10,19 @@ const Contact = () => {
       id="contact"
       className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12">
-            <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">Get in Touch</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">Let's create something together.</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-              Feel free to reach out directly.
-            </p>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12">
+          <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">Get in Touch</span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Let's create something together.</h2>
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            Feel free to reach out directly.
+          </p>
+        </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <motion.div
@@ -56,7 +55,6 @@ const Contact = () => {
             </motion.div>
           </div>
         </div>
-      </div>
     </section>
   );
 };
