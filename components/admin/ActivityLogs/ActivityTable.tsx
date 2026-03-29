@@ -46,23 +46,25 @@ export function ActivityTable({
   onItemsPerPageChange
 }: ActivityTableProps) {
   return (
-    <div className="bg-card rounded-[2.5rem] overflow-hidden border border-border shadow-xl transition-colors duration-500">
+    <div className="bg-card rounded-3xl overflow-hidden border border-border shadow-2xl transition-colors duration-500">
       <div className="overflow-x-auto scroller-primary">
         <table className="w-full text-left min-w-[800px]">
           <thead>
-            <tr className="bg-secondary/10 border-b border-border transition-colors duration-300">
-              <th className="px-6 md:px-8 py-6 w-12 text-center">
+            <tr className="bg-secondary/5 border-b border-border transition-colors duration-300">
+              <th className="px-4 md:px-6 py-3.5 w-12 text-center">
                 <Checkbox
                   checked={visitors.length > 0 && selectedIds.length === visitors.length}
                   onCheckedChange={onToggleSelectAll}
-                  className="w-5 h-5 rounded-md border-border bg-card data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary transition-all duration-300"
+                  className="w-4 h-4 rounded border-border bg-card data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary transition-all duration-300"
                 />
               </th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Time</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">IP Address</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Location</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Network</th>
-              <th className="px-6 md:px-8 py-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] text-right pr-12">Actions</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">Time</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">IP Address</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">Location</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">Tech</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">Path</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em]">Discovery / Source</th>
+              <th className="px-4 md:px-6 py-3.5 text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.15em] text-right pr-9">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/20">
@@ -84,7 +86,7 @@ export function ActivityTable({
 
             {!loading && visitors.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-8 py-32 text-center">
+                <td colSpan={8} className="px-8 py-32 text-center">
                   <div className="flex flex-col items-center gap-4 opacity-5">
                     <Globe className="w-20 h-20 text-foreground" />
                     <p className="text-sm font-black uppercase tracking-[0.5em] text-foreground">No Activity Detected</p>

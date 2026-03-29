@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, MapPin, Trash2, ChevronLeft, RefreshCw, Globe } from "lucide-react";
+import { Clock, MapPin, Trash2, ChevronLeft, RefreshCw, Globe, Monitor, Smartphone, Bot, Layout } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { JourneyTrace } from "./JourneyTrace";
 import { formatDate } from "@/lib/utils";
@@ -45,50 +45,56 @@ export function ActivityRow({
               : 'hover:bg-secondary/5'
         }`}
       >
-        <td className="px-6 md:px-8 py-5 text-center">
+        <td className="px-4 md:px-6 py-2.5 text-center">
           <Checkbox
             checked={isAnyVisitSelected}
             onCheckedChange={(checked) => {
               const ids = group.visits.map((v: any) => v.id);
               onToggleSelectGroup(ids, checked as boolean);
             }}
-            className="w-5 h-5 rounded-md border-border bg-card data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground transition-all duration-300"
+            className="w-4 h-4 rounded border-border bg-card data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground transition-all duration-300"
           />
         </td>
-        <td className="px-6 md:px-8 py-5 whitespace-nowrap">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center border border-border/20">
-              <Clock className="w-4 h-4 text-primary" />
+        <td className="px-4 md:px-6 py-2.5 whitespace-nowrap">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-secondary/10 flex items-center justify-center border border-border/10">
+              <Clock className="w-3.5 h-3.5 text-primary/70" />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-foreground tracking-tight">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] font-bold text-foreground tracking-tight">
                   {formatDate(group.latestVisit)}
                 </span>
                 {group.count > 1 && (
-                  <span className="text-[10px] font-black text-primary bg-primary/10 px-1.5 py-0.5 rounded-md border border-primary/20">
+                   <span className="text-[8px] font-black text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20">
                     {group.count}
                   </span>
                 )}
               </div>
-              <span className="text-[10px] font-bold text-muted-foreground uppercase">
+              <span className="text-[9px] font-black text-muted-foreground/40 uppercase select-none leading-none">
                 {new Date(group.latestVisit).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
           </div>
         </td>
-        <td className="px-6 md:px-8 py-5 whitespace-nowrap">
+        <td className="px-4 md:px-6 py-2.5 whitespace-nowrap">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-xl border border-primary/20">
+            <span className="font-mono text-[10px] font-bold text-primary bg-primary/5 px-2 py-1 rounded-lg border border-primary/10">
               {group.ip}
             </span>
+            {group.isBot && (
+              <div className="flex items-center gap-1 bg-amber-500/5 text-amber-500/80 px-1.5 py-0.5 rounded border border-amber-500/10">
+                <Bot className="w-2.5 h-2.5" />
+                <span className="text-[7px] font-black uppercase tracking-tighter">Bot</span>
+              </div>
+            )}
             {group.count > 1 && (
               <button
                 onClick={() => onToggleExpand(group.ip)}
-                className={`w-7 h-7 rounded-lg transition-all duration-300 flex items-center justify-center ${
+                className={`w-6 h-6 rounded-lg transition-all duration-300 flex items-center justify-center ${
                   isExpanded 
-                    ? 'rotate-180 bg-primary text-primary-foreground' 
-                    : 'text-muted-foreground hover:text-primary hover:bg-secondary/20 border border-transparent hover:border-primary/20'
+                    ? 'rotate-180 bg-primary text-primary-foreground shadow-sm' 
+                    : 'text-muted-foreground hover:text-primary hover:bg-secondary/10'
                 }`}
               >
                 <ChevronLeft className="w-3 h-3 -rotate-90" />
@@ -96,36 +102,65 @@ export function ActivityRow({
             )}
           </div>
         </td>
-        <td className="px-6 md:px-8 py-5 min-w-[200px]">
+        <td className="px-4 md:px-6 py-2.5 min-w-[160px]">
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-primary" />
+            <MapPin className="w-3.5 h-3.5 text-primary/60" />
             <div className="flex flex-col overflow-hidden">
-              <span className="text-xs font-bold text-foreground truncate">{group.city || 'Restricted Content'}</span>
-              <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest truncate">{group.country || 'Unknown Sector'}</span>
+              <span className="text-[11px] font-bold text-foreground truncate leading-tight">{group.city || 'Localhost'}</span>
+              <span className="text-[8px] font-black text-muted-foreground/30 uppercase tracking-widest truncate">{group.country || 'Dev'}</span>
             </div>
           </div>
         </td>
-        <td className="px-6 md:px-8 py-5 min-w-[150px]">
+        {/* Tech Details Cells */}
+        <td className="px-4 md:px-6 py-2.5 whitespace-nowrap">
+          <div className="flex items-center gap-3">
+             <div className="flex items-center gap-1.5 opacity-80">
+                {group.device === "mobile" ? <Smartphone className="w-3.5 h-3.5 text-muted-foreground/60" /> : <Monitor className="w-3.5 h-3.5 text-muted-foreground/60" />}
+                <span className="text-[10px] font-bold text-foreground/70 tracking-tight leading-none">{group.browser || "—"}</span>
+             </div>
+             <div className="h-3 w-px bg-border/20" />
+             <span className="text-[8px] font-black text-muted-foreground/30 uppercase tracking-widest truncate max-w-[60px]">
+                {group.os || "—"}
+             </span>
+          </div>
+        </td>
+        {/* Path Cell */}
+        <td className="px-4 md:px-6 py-2.5 whitespace-nowrap">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-secondary/20 flex items-center justify-center border border-border/20">
-              <Globe className="w-3 h-3 text-primary" />
+            <div className="w-5 h-5 rounded bg-secondary/5 flex items-center justify-center border border-border/10">
+                <Layout className="w-3 h-3 text-primary/40" />
             </div>
-            <span className="text-xs font-bold text-foreground/80 truncate max-w-[180px]" title={group.org || ''}>
-              {group.org || 'Direct Access'}
-            </span>
+            <span className="text-[10px] font-black text-foreground/50 font-mono tracking-tighter">{group.path || "/"}</span>
           </div>
         </td>
-        <td className="px-6 md:px-8 py-5 text-right whitespace-nowrap pr-12">
+        <td className="px-4 md:px-6 py-2.5 min-w-[180px]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-primary/[0.03] flex items-center justify-center border border-border/10 text-primary group-hover:bg-primary transition-all duration-500 group-hover:text-primary-foreground">
+              <Globe className="w-3.5 h-3.5" />
+            </div>
+            <div className="flex flex-col overflow-hidden">
+                <span className="text-[10px] font-black text-foreground/80 lowercase tracking-tight truncate leading-tight">
+                    {group.referrer && group.referrer !== "Direct" 
+                        ? (group.referrer.includes('://') ? new URL(group.referrer).hostname.replace('www.', '') : group.referrer)
+                        : "direct traffic"}
+                </span>
+                <span className="text-[7px] font-black text-muted-foreground/20 uppercase tracking-widest truncate" title={group.org || ''}>
+                    {group.org || 'Local Network'}
+                </span>
+            </div>
+          </div>
+        </td>
+        <td className="px-4 md:px-6 py-2.5 text-right whitespace-nowrap pr-9">
           <div className="flex justify-end">
             <button
               onClick={() => onDelete(group.visits[0].id)}
               disabled={isActionInProgress}
-              className="w-10 h-10 rounded-xl text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-all duration-300 flex items-center justify-center translate-x-2 disabled:opacity-50 disabled:pointer-events-none"
+              className="w-8 h-8 rounded-lg text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 transition-all duration-300 flex items-center justify-center group/delete disabled:opacity-50 disabled:pointer-events-none"
             >
               {isActionInProgress && group.visits.some((v: any) => v.id === deletingId) ? (
-                <RefreshCw className="w-4 h-4 animate-spin text-red-600 dark:text-red-500" />
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-destructive" />
               ) : (
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-3.5 h-3.5 group-hover/delete:scale-110 transition-transform" />
               )}
             </button>
           </div>

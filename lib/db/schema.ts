@@ -1,7 +1,8 @@
-import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, varchar, boolean } from "drizzle-orm/pg-core";
 
 export const visitors = pgTable("visitors", {
   id: serial("id").primaryKey(),
+  visitorId: varchar("visitor_id", { length: 36 }),
   ip: varchar("ip", { length: 45 }).notNull(),
   city: text("city"),
   region: text("region"),
@@ -9,5 +10,11 @@ export const visitors = pgTable("visitors", {
   loc: text("loc"),
   org: text("org"),
   userAgent: text("user_agent"),
+  browser: text("browser"),
+  os: text("os"),
+  device: text("device"),
+  referrer: text("referrer"),
+  path: text("path"),
+  isBot: boolean("is_bot").default(false),
   visitedAt: timestamp("visited_at").defaultNow().notNull(),
 });

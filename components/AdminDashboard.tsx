@@ -6,12 +6,15 @@ import { DashboardHeader } from "./admin/DashboardHeader";
 import { StatsGrid } from "./admin/StatsGrid";
 import { VisitorTrafficChart } from "./admin/VisitorTrafficChart";
 import { TopLocations } from "./admin/TopLocations";
+import { DeviceDistribution } from "./admin/DeviceDistribution";
+import { TrafficSources } from "./admin/TrafficSources";
 import { ActivityTable } from "./admin/ActivityLogs/ActivityTable";
 import { ConfirmDialog } from "./admin/shared/ConfirmDialog";
 import { formatDate } from "@/lib/utils";
 
 interface Visitor {
   id: number;
+  visitorId: string | null;
   ip: string;
   city: string | null;
   region: string | null;
@@ -19,6 +22,12 @@ interface Visitor {
   loc: string | null;
   org: string | null;
   userAgent: string | null;
+  browser: string | null;
+  os: string | null;
+  device: string | null;
+  referrer: string | null;
+  path: string | null;
+  isBot: boolean;
   visitedAt: Date | string;
 }
 
@@ -43,6 +52,7 @@ export default function AdminDashboard() {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [showConfirmBulkDelete, setShowConfirmBulkDelete] = useState(false);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
+  const [showBots, setShowBots] = useState(false);
 
   const fetchVisitors = async () => {
     setLoading(true);
@@ -75,16 +85,31 @@ export default function AdminDashboard() {
           country: v.country,
           org: v.org,
           userAgent: v.userAgent,
+          browser: v.browser,
+          os: v.os,
+          device: v.device,
+          path: v.path,
+          isBot: v.isBot,
           visits: [],
-          latestVisit: v.visitedAt
+          latestVisit: v.visitedAt,
+          referrer: v.referrer
         };
       }
       acc[v.ip].count++;
+
+      // Smarter metadata grouping: Prioritize high-value sources (referrers) 
+      // even if the latest visit is "Direct"
+      if ((!acc[v.ip].referrer || acc[v.ip].referrer === "Direct") && v.referrer && v.referrer !== "Direct") {
+          acc[v.ip].referrer = v.referrer;
+      }
+
       acc[v.ip].visits.push({
         id: v.id,
         at: v.visitedAt,
         city: v.city,
-        country: v.country
+        country: v.country,
+        referrer: v.referrer,
+        path: v.path
       });
       return acc;
     }, {});
@@ -151,9 +176,6 @@ export default function AdminDashboard() {
       }, {});
 
       chart = labels.map(date => {
-        // For chart display, we might want a slightly shorter version if it's too long,
-        // but let's stick to the requested format first. 
-        // We can abbreviate if the user complains.
         return {
           date: date,
           visits: counts[date] || 0
@@ -167,7 +189,7 @@ export default function AdminDashboard() {
   const { chart: chartData, grouped: groupedVisitors } = processedData;
 
   const countryData = useMemo(() => {
-    const counts = visitors.reduce((acc: any, v) => {
+    const counts = visitors.filter(v => !v.isBot).reduce((acc: any, v) => {
       const country = v.country || 'Unknown';
       acc[country] = (acc[country] || 0) + 1;
       return acc;
@@ -178,13 +200,53 @@ export default function AdminDashboard() {
       .sort((a, b) => b.value - a.value)
       .slice(0, 5);
   }, [visitors]);
+
+  const deviceData = useMemo(() => {
+    const counts = visitors.filter(v => !v.isBot).reduce((acc: any, v) => {
+      const device = v.device || 'desktop';
+      acc[device] = (acc[device] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(counts)
+      .map(([name, value]) => ({ name, value: value as number }))
+      .sort((a, b) => b.value - a.value);
+  }, [visitors]);
+
+  const referrerData = useMemo(() => {
+    const counts = visitors.filter(v => !v.isBot).reduce((acc: any, v) => {
+      let referrer = "Direct";
+      if (v.referrer && v.referrer !== "Direct") {
+        try {
+          referrer = new URL(v.referrer).hostname.replace('www.', '');
+        } catch (e) {
+          referrer = v.referrer;
+        }
+      }
+      acc[referrer] = (acc[referrer] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(counts)
+      .map(([name, value]) => ({ name, value: value as number }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 6);
+  }, [visitors]);
+
+  const uniqueVisitors = useMemo(() => {
+    return new Set(visitors.filter(v => !v.isBot).map(v => v.visitorId || v.ip)).size;
+  }, [visitors]);
   
   // Pagination Logic
-  const totalPages = Math.ceil(groupedVisitors.length / itemsPerPage);
+  const filteredGroupedVisitors = useMemo(() => {
+    return showBots ? groupedVisitors : (groupedVisitors as any[]).filter(g => !g.isBot);
+  }, [groupedVisitors, showBots]);
+
+  const totalPages = Math.ceil(filteredGroupedVisitors.length / itemsPerPage);
   const paginatedVisitors = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    return (groupedVisitors as any[]).slice(startIndex, startIndex + itemsPerPage);
-  }, [groupedVisitors, currentPage, itemsPerPage]);
+    return filteredGroupedVisitors.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredGroupedVisitors, currentPage, itemsPerPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
@@ -251,13 +313,13 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-24 font-[Inter] relative overflow-hidden selection:bg-secondary/30 selection:text-foreground transition-colors duration-500">
+    <div className="min-h-screen bg-background text-foreground p-3 md:p-6 pt-20 font-[Inter] relative overflow-hidden selection:bg-secondary/30 selection:text-foreground transition-colors duration-500">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full quartz-grid-pattern text-border/20 pointer-events-none" />
       <div className="absolute top-[-10%] right-[-5%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto space-y-10 relative z-10">
+      <div className="max-w-[1280px] mx-auto space-y-6 relative z-10">
         
         <DashboardHeader 
           onSync={fetchVisitors}
@@ -268,9 +330,9 @@ export default function AdminDashboard() {
         />
 
         <StatsGrid 
-          totalVisitors={visitors.length}
-          uniqueIps={new Set(visitors.map(v => v.ip)).size}
-          countriesCount={new Set(visitors.map(v => v.country).filter(Boolean)).size}
+          totalVisitors={visitors.filter(v => !v.isBot).length}
+          uniqueVisitors={uniqueVisitors}
+          countriesCount={new Set(visitors.filter(v => !v.isBot).map(v => v.country).filter(Boolean)).size}
           peakVisits={Math.max(...chartData.map(d => d.visits), 0)}
         />
 
@@ -284,15 +346,31 @@ export default function AdminDashboard() {
 
           <TopLocations 
             countryData={countryData}
-            totalVisitorsCount={visitors.length}
+            totalVisitorsCount={visitors.filter(v => !v.isBot).length}
           />
         </div>
 
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <DeviceDistribution deviceData={deviceData} />
+          <TrafficSources referrerData={referrerData} totalVisitorsCount={visitors.filter(v => !v.isBot).length} />
+        </div>
+
+        <div className="space-y-4">
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-4">
               <h2 className="text-2xl font-bold text-foreground font-heading">Recent Activity</h2>
               <div className="h-px w-12 bg-border/40" />
+              <button
+                onClick={() => setShowBots(!showBots)}
+                className={`h-9 px-4 rounded-xl border transition-all duration-500 font-bold text-[10px] uppercase tracking-widest flex items-center gap-2 ${
+                    showBots 
+                    ? "bg-amber-500/10 border-amber-500/30 text-amber-500 shadow-[0_0_15px_-5px_#f59e0b20]" 
+                    : "bg-secondary/10 border-border/40 text-muted-foreground hover:border-primary/40 hover:text-primary"
+                }`}
+              >
+                <div className={`w-2 h-2 rounded-full ${showBots ? "bg-amber-500 animate-pulse" : "bg-muted-foreground/30"}`} />
+                {showBots ? "Showing All Logs (Incl. Bots)" : "Human Traffic Only"}
+              </button>
               {selectedIds.length > 0 && (
                 <button
                   onClick={() => setShowConfirmBulkDelete(true)}

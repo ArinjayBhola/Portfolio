@@ -25,30 +25,30 @@ export function VisitorTrafficChart({
   hasVisitors
 }: VisitorTrafficChartProps) {
   return (
-    <div className="lg:col-span-8 bg-card p-6 md:p-8 rounded-[2.5rem] border border-border shadow-sm transition-colors duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+    <div className="lg:col-span-8 bg-card p-4 md:p-5 rounded-3xl border border-border shadow-sm transition-colors duration-500">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
         <div>
-          <h3 className="text-xl font-bold text-foreground font-heading tabular-nums">Visitor Traffic</h3>
-          <p className="text-muted-foreground text-xs font-medium mt-1">Activity over selected period</p>
+          <h3 className="text-lg font-bold text-foreground font-heading tabular-nums tracking-tight">Visitor Traffic</h3>
+          <p className="text-muted-foreground/50 text-[10px] font-bold uppercase tracking-wider mt-0.5">Real-time Activity</p>
         </div>
-        <div className="flex items-center bg-secondary/20 p-1 rounded-2xl border border-border self-start transition-colors duration-300">
+        <div className="flex items-center bg-secondary/10 p-0.5 rounded-xl border border-border/40 self-start transition-colors duration-300">
           {(["24h", "7d", "30d", "all"] as const).map((range) => (
             <button
               key={range}
               onClick={() => onTimeRangeChange(range)}
-              className={`px-3 md:px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all ${
+              className={`px-3 py-1 text-[9px] font-black uppercase tracking-widest rounded-lg transition-all ${
                 timeRange === range
                   ? "bg-primary text-primary-foreground shadow-sm border border-primary/20"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/20"
               }`}
             >
-              {range === "all" ? "All Time" : range}
+              {range === "all" ? "All" : range}
             </button>
           ))}
         </div>
       </div>
       
-      <div className="h-[300px] md:h-[320px] w-full flex items-center justify-center relative">
+      <div className="h-[220px] md:h-[240px] w-full flex items-center justify-center relative">
         {hasVisitors ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
