@@ -43,7 +43,7 @@ const Experience = () => {
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 bg-secondary/10 border border-border/50 rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col">
+          <div className="flex-1 bg-card border border-border rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}

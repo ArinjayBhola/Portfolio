@@ -133,10 +133,10 @@ const About = () => {
               <div key={lineIndex} className="flex overflow-hidden">
                 <div className={`flex gap-6 whitespace-nowrap px-4 w-max ${isReverse ? "animate-marquee-horizontal-reverse" : "animate-marquee-horizontal"}`}>
                   {displaySkills.map((skill, i) => (
-                    <div
+                      <div
                       key={`${skill.name}-${i}`}
-                      className="flex items-center gap-3 px-6 py-4 bg-background border border-border/50 rounded-2xl group hover:border-primary/50 transition-all duration-300">
-                      <div className="text-2xl text-primary transition-transform group-hover:scale-110 duration-500">
+                      className="flex items-center gap-3 px-6 py-4 bg-card border border-border rounded-xl group hover:border-foreground/20 transition-colors">
+                      <div className="text-2xl text-foreground/80">
                         {skill.icon}
                       </div>
                       <span className="text-sm font-bold tracking-tight opacity-80 group-hover:opacity-100">

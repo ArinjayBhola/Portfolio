@@ -20,22 +20,23 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-t border-border bg-background">
-      <div className="relative flex items-center gap-2">
+    <form onSubmit={handleSubmit} className="px-4 pt-3 pb-2 bg-background/60">
+      <div className="relative flex items-center gap-2 bg-secondary/40 border border-border/70 rounded-2xl pl-4 pr-1.5 py-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask me anything..."
           disabled={disabled}
-          className="flex-1 bg-secondary/50 border border-border rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all disabled:opacity-50"
+          className="flex-1 bg-transparent text-sm focus:outline-none disabled:opacity-50 placeholder:text-muted-foreground/60"
         />
         <button
           type="submit"
           disabled={!input.trim() || disabled}
-          className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
+          className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground p-2 rounded-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:scale-100 shadow-sm"
+          aria-label="Send message"
         >
-          <Send size={18} />
+          <Send size={16} />
         </button>
       </div>
     </form>

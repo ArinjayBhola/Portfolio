@@ -9,6 +9,7 @@ interface StatItem {
   icon: LucideIcon;
   color: string;
   bg: string;
+  ring: string;
   trend: string;
 }
 
@@ -26,10 +27,10 @@ export function StatsGrid({
   peakVisits
 }: StatsGridProps) {
   const stats: StatItem[] = [
-    { label: "Total Sessions", value: totalVisitors, icon: Users, color: "text-primary", bg: "bg-primary/10", trend: "LOGS" },
-    { label: "Unique Visitors", value: uniqueVisitors, icon: TrendingUp, color: "text-primary", bg: "bg-secondary/20", trend: "RETENTION" },
-    { label: "Countries", value: countriesCount, icon: Map, color: "text-primary", bg: "bg-primary/5", trend: "GLOBAL" },
-    { label: "Peak Visits", value: peakVisits, icon: Clock, color: "text-primary", bg: "bg-secondary/40", trend: "PERFORMANCE" }
+    { label: "Total Sessions", value: totalVisitors, icon: Users, color: "text-primary", bg: "bg-primary/10", ring: "group-hover:shadow-[0_0_25px_-8px_hsl(var(--primary))]", trend: "LOGS" },
+    { label: "Unique Visitors", value: uniqueVisitors, icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#10b981]", trend: "RETENTION" },
+    { label: "Countries", value: countriesCount, icon: Map, color: "text-sky-500", bg: "bg-sky-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#0ea5e9]", trend: "GLOBAL" },
+    { label: "Peak Visits", value: peakVisits, icon: Clock, color: "text-violet-500", bg: "bg-violet-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#8b5cf6]", trend: "PERFORMANCE" }
   ];
 
   return (
@@ -50,8 +51,8 @@ export function StatsGrid({
             }`}
           >
             <div className="flex items-start justify-between">
-              <div className={`w-10 h-10 ${stat.bg} rounded-xl flex items-center justify-center border border-white/20 shadow-inner transform group-hover:scale-110 transition-transform duration-300`}>
-                <stat.icon className={`w-5 h-5 ${stat.color} dark:text-primary`} />
+              <div className={`w-10 h-10 ${stat.bg} ${stat.ring} rounded-xl flex items-center justify-center border border-white/20 shadow-inner transform group-hover:scale-110 transition-all duration-300`}>
+                <stat.icon className={`w-5 h-5 ${stat.color}`} />
               </div>
               <div className="px-2 py-0.5 rounded-full bg-secondary/10 text-[9px] font-bold text-muted-foreground border border-border/20 italic transition-transform group-hover:scale-105">
                 {stat.trend}

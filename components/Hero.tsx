@@ -56,7 +56,7 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
             className="mb-10">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
               <div className="overflow-hidden">
                 <motion.span
                   variants={letterAnimation}
@@ -64,16 +64,11 @@ const Hero = () => {
                   Creating
                 </motion.span>
               </div>
-              <div className="overflow-hidden">
+              <div className="overflow-hidden pb-4">
                 <motion.span
                   variants={letterAnimation}
-                  className="inline-block text-muted-foreground">
-                  Digital
-                </motion.span>{" "}
-                <motion.span
-                  variants={letterAnimation}
-                  className="inline-block text-primary">
-                  Value.
+                  className="inline-block text-foreground">
+                  Digital Value.
                 </motion.span>
               </div>
             </h1>
@@ -83,7 +78,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-xl md:text-2xl text-muted-foreground/80 max-w-2xl mb-12 leading-relaxed">
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mb-12 leading-relaxed">
             I'm Arinjay Bhola, a Full Stack Developer focused on building clean, scalable, and user-centric web
             applications that leave a lasting impression.
           </motion.p>
@@ -95,7 +90,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-5">
             <Button
               size="lg"
-              className="text-lg px-8 py-7 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-transform hover:scale-105 active:scale-95 shadow-xl shadow-primary/20"
+              className="text-lg px-8 py-7 rounded-none bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
               View Work
               <ArrowRight className="ml-2 w-5 h-5" />

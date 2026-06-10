@@ -15,7 +15,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, github, url, title, description, image, stack }: ProjectCardProps) => {
   return (
-    <article className="group relative flex flex-col h-full bg-background border border-border/60 rounded-3xl overflow-hidden transition-all duration-500 hover:border-primary/40 hover:shadow-2xl">
+    <article className="group relative flex flex-col h-full bg-card border border-border rounded-xl overflow-hidden transition-colors hover:border-foreground/20">
       {/* Visual Header */}
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         <Image

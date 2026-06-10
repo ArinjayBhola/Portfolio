@@ -6,8 +6,9 @@
 
 @layer base {
   :root {
-    --background: 45 40% 96%; /* Antique Cream - Richer and Softer (#F7F2E8 approx) */
-    --foreground: 25 15% 18%; /* Soft Umber / Deep Sepia - Lower contrast than charcoal (#2E2824) */
+    /* Light Mode: Warm / Earthy tones */
+    --background: 45 40% 96%;
+    --foreground: 25 15% 18%;
 
     --card: 45 40% 98%;
     --card-foreground: 25 15% 18%;
@@ -15,60 +16,62 @@
     --popover: 45 40% 98%;
     --popover-foreground: 25 15% 18%;
 
-    --primary: 20 40% 45%; /* Muted Clay / Toasted Earth - Softer than the previous terracotta */
-    --primary-foreground: 45 40% 96%;
+    /* Primary: Sage / Muted Olive */
+    --primary: 95 10% 45%; 
+    --primary-foreground: 45 40% 98%;
 
-    --secondary: 45 35% 88%; /* Buff / Almond - Warm and neutral */
+    --secondary: 45 10% 90%;
     --secondary-foreground: 25 15% 18%;
 
-    --muted: 45 30% 92%; /* Softer Cream-Grey */
-    --muted-foreground: 25 10% 45%;
+    --muted: 45 10% 90%;
+    --muted-foreground: 25 10% 40%;
 
-    --accent: 20 40% 45%; 
-    --accent-foreground: 45 40% 96%;
+    --accent: 45 10% 90%;
+    --accent-foreground: 25 15% 18%;
 
-    --destructive: 0 70% 50%; /* Muted Red */
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 45 40% 98%;
 
-    --border: 45 20% 84%; /* Soft Stone / Aged Paper */
-    --input: 45 20% 84%;
-    --ring: 20 40% 45%;
+    --border: 45 10% 85%;
+    --input: 45 10% 85%;
+    --ring: 95 10% 45%;
 
-    --radius: 0.6rem; /* Slightly rounder for softer feel */
+    --radius: 0.5rem;
 
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
   }
 
   .dark {
-    /* dark mode: Warm Walnut / Burnt Oak */
-    --background: 25 10% 8%; /* Deep Roasted Coffee */
-    --foreground: 45 30% 90%; /* Warm Parchment Text */
+    /* Dark Mode: Deep Earth */
+    --background: 25 15% 12%;
+    --foreground: 45 40% 94%;
 
-    --card: 25 10% 10%;
-    --card-foreground: 45 30% 90%;
+    --card: 25 15% 14%;
+    --card-foreground: 45 40% 94%;
 
-    --popover: 25 10% 10%;
-    --popover-foreground: 45 30% 90%;
+    --popover: 25 15% 14%;
+    --popover-foreground: 45 40% 94%;
 
-    --primary: 20 40% 50%; /* Ember Clay */
-    --primary-foreground: 25 10% 8%;
+    /* Primary: Soft Terracotta / Rust */
+    --primary: 20 40% 55%;
+    --primary-foreground: 45 40% 98%;
 
-    --secondary: 25 10% 15%; /* Darker Nut */
-    --secondary-foreground: 45 30% 90%;
+    --secondary: 25 10% 20%;
+    --secondary-foreground: 45 40% 94%;
 
-    --muted: 25 10% 12%;
-    --muted-foreground: 25 8% 65%;
+    --muted: 25 10% 20%;
+    --muted-foreground: 45 10% 70%;
 
-    --accent: 20 40% 50%; 
-    --accent-foreground: 25 10% 8%;
+    --accent: 25 10% 20%;
+    --accent-foreground: 45 40% 94%;
 
-    --destructive: 0 50% 35%;
-    --destructive-foreground: 45 30% 90%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 40% 94%;
 
-    --border: 25 10% 18%;
-    --input: 25 10% 18%;
-    --ring: 20 40% 50%;
+    --border: 25 10% 25%;
+    --input: 25 10% 25%;
+    --ring: 20 40% 55%;
   }
 
   body {
@@ -158,5 +161,30 @@
 
   .spotlight-card {
     @apply relative overflow-hidden bg-card border border-border/50 rounded-xl transition-all duration-300;
+  }
+
+  /* Slim, theme-aware scrollbar used inside the chat widget */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.25);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.45);
+  }
+
+  /* Subtle grid backdrop used across the admin portal */
+  .quartz-grid-pattern {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
   }
 }

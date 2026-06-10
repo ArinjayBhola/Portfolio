@@ -1,6 +1,6 @@
 /**
  * Utility to extract structured content from the DOM.
- * This is used to provide context to the Gemini AI.
+ * This is used to provide context to the Groq AI assistant.
  */
 
 export interface PageContent {

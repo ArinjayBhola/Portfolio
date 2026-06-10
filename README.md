@@ -1,6 +1,6 @@
 # Arinjay Bhola's Portfolio & AI Co-browsing Assistant
 
-A production-quality personal portfolio built with **Next.js 14**, **TypeScript**, and **TailwindCSS**, featuring a cutting-edge **AI Co-browsing Chatbot** powered by **Google Gemini**.
+A production-quality personal portfolio built with **Next.js 14**, **TypeScript**, and **TailwindCSS**, featuring a cutting-edge **AI Co-browsing Chatbot** powered by **Groq (Llama 3.3 70B)**.
 
 ## 🚀 Features
 
@@ -24,14 +24,14 @@ A production-quality personal portfolio built with **Next.js 14**, **TypeScript*
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **AI Engine**: [Google Gemini Pro API](https://ai.google.dev/)
+- **AI Engine**: [Groq API — Llama 3.3 70B](https://groq.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 
 ## 🏗️ Architecture
 
 ### **Co-browsing Agent Flow**
 1. **Context Extraction**: Upon user message, the system scans the DOM for headings, text, and IDs.
-2. **AI Processing**: Message + DOM context is sent to Gemini with a custom system instruction set.
+2. **AI Processing**: Message + DOM context is sent to Groq with a custom system instruction set.
 3. **Intent Recognition**: The AI decides whether to respond with text, call a tool (navigation, highlight), or both.
 4. **Action Execution**: The frontend `actionExecutor` receives tool calls and triggers smooth scrolls or visual glows.
 
@@ -40,7 +40,7 @@ A production-quality personal portfolio built with **Next.js 14**, **TypeScript*
 ### **Prerequisites**
 - Node.js 18.x or later
 - npm or yarn
-- A Gemini API Key from [Google AI Studio](https://aistudio.google.com/)
+- A Groq API Key from [Groq Console](https://console.groq.com/keys)
 
 ### **Installation**
 
@@ -58,7 +58,7 @@ A production-quality personal portfolio built with **Next.js 14**, **TypeScript*
 3. **Set up environment variables**:
    Create a `.env.local` file in the root and add your API key:
    ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
+   GROQ_API_KEY=your_groq_api_key_here
    ```
 
 4. **Run the development server**:

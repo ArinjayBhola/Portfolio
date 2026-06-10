@@ -1,6 +1,5 @@
 import Layout from "../components/Layout";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Dock from "../components/Dock";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Experience from "../components/Experience";
@@ -10,7 +9,7 @@ import Contact from "../components/Contact";
 export default function Home() {
   return (
     <Layout>
-      <Header />
+      <Dock />
       <section id="home">
         <Hero />
       </section>
@@ -26,7 +25,6 @@ export default function Home() {
       <section id="contact">
         <Contact />
       </section>
-      <Footer />
     </Layout>
   );
 }

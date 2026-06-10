@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { chatWithGemini } from '@/lib/gemini';
+import { chatWithGroq } from '@/lib/groq';
 
 export async function POST(req: Request) {
   try {
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid messages' }, { status: 400 });
     }
 
-    const result = await chatWithGemini(messages, pageContext);
+    const result = await chatWithGroq(messages, pageContext);
 
     return NextResponse.json(result);
   } catch (error: any) {

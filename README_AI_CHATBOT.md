@@ -4,7 +4,7 @@ This project adds a production-quality, AI-powered co-browsing chatbot to a Next
 
 ## 🚀 Features
 
-- **Conversational AI**: Powered by Gemini 1.5 Flash (Free API).
+- **Conversational AI**: Powered by Groq (Llama 3.3 70B Versatile) for fast, low-latency inference.
 - **Dynamic Context**: Automatically extracts section content, project details, and form fields from the DOM.
 - **Co-browsing Tools**: The AI can scroll, navigate to sections, highlight elements, and even help fill out contact forms.
 - **Modern UI**: A sleek, floating chat widget built with React, TailwindCSS, and Framer Motion.
@@ -16,14 +16,14 @@ This project adds a production-quality, AI-powered co-browsing chatbot to a Next
 The `extractPageContent` utility scans the DOM to build a structured map of the website. This allows the AI to "see" what's on the page without hardcoding any content.
 
 ### 2. Tool Calling System (`lib/tools.ts` & `utils/actionExecutor.ts`)
-We've implemented a registry of tools that Gemini can invoke:
+We've implemented a registry of tools that the model can invoke:
 - `navigate_to_section`: Scrolls to a specific ID and highlights it.
 - `scroll_down` / `scroll_up`: Natural page navigation.
 - `highlight_element`: Visual feedback (glow effect) for specific elements.
 - `fill_input`: Populates form fields programmatically.
 
 ### 3. Agentic Loop
-User Message → Extract Page State → API Call (Gemini) → Parse Response/Tools → Execute Frontend Actions → Display Response.
+User Message → Extract Page State → API Call (Groq) → Parse Response/Tools → Execute Frontend Actions → Display Response.
 
 ## 🛠️ Setup Instructions
 
@@ -37,8 +37,8 @@ npm install
 ### 2. Environment Variables
 Create a `.env.local` file (or update your `.env`) with:
 ```env
-# Get your free key at https://aistudio.google.com/
-GEMINI_API_KEY=your_gemini_api_key_here
+# Get your free key at https://console.groq.com/keys
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
 ### 3. Run Locally
