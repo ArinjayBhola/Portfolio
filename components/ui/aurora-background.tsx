@@ -24,7 +24,7 @@ export const AuroraBackground = ({
         <div
           className={cn(
             "absolute inset-0 opacity-20 blur-[100px]",
-            "bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent)]",
+            "bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)),transparent)]",
             showRadialGradient && "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]",
           )}></div>
       </div>

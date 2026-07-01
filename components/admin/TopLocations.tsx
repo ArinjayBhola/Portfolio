@@ -36,12 +36,12 @@ export function TopLocations({
                 initial={{ width: 0 }}
                 animate={{ width: `${(item.value / totalVisitorsCount) * 100}%` }}
                 transition={{ duration: 1.5, delay: idx * 0.1 }}
-                className="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(99,102,241,0.3)]"
+                className="h-full bg-primary rounded-full shadow-[0_0_8px_hsl(var(--primary)/0.3)]"
               />
             </div>
           </div>
         )) : (
-          <div className="py-8 flex flex-col items-center gap-3 opacity-20 filter grayscale dark:invert">
+          <div className="py-8 flex flex-col items-center gap-3 opacity-20 filter grayscale">
             <Globe className="w-10 h-10" />
             <p className="text-[9px] font-bold uppercase tracking-widest">No Location Data</p>
           </div>

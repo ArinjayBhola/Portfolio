@@ -7,7 +7,8 @@ interface DeviceDistributionProps {
   deviceData: { name: string; value: number }[];
 }
 
-const COLORS = ["#6366f1", "#a855f7", "#ec4899", "#22d3ee"];
+// Cohesive warm / earthy palette matching the site theme
+const COLORS = ["#b5794f", "#6b7355", "#c1a044", "#5a8c7d"];
 
 export function DeviceDistribution({ deviceData }: DeviceDistributionProps) {
   const total = deviceData.reduce((acc, curr) => acc + curr.value, 0);
@@ -56,8 +57,8 @@ export function DeviceDistribution({ deviceData }: DeviceDistributionProps) {
               </Pie>
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "var(--card)",
-                  border: "1px solid var(--border)",
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
                   borderRadius: "1.25rem",
                   boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
                   padding: "12px 16px",
@@ -67,7 +68,7 @@ export function DeviceDistribution({ deviceData }: DeviceDistributionProps) {
             </PieChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full gap-4 opacity-20 filter grayscale dark:invert">
+          <div className="flex flex-col items-center justify-center h-full gap-4 opacity-20 filter grayscale">
             <Laptop className="w-10 h-10" />
             <p className="text-[9px] font-bold uppercase tracking-widest">No Device Data</p>
           </div>

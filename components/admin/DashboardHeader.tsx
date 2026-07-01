@@ -2,7 +2,6 @@
 
 import { Globe, RefreshCw, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "./ThemeToggle";
 
 interface DashboardHeaderProps {
   onSync: () => void;
@@ -34,8 +33,6 @@ export function DashboardHeader({
       </div>
       
       <div className="flex flex-wrap items-center gap-3">
-        <ThemeToggle />
-        <div className="h-6 w-px bg-border/40 hidden md:block" />
         <div className="flex flex-wrap items-center gap-2">
           <Button
             variant="outline"

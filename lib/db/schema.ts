@@ -15,6 +15,11 @@ export const visitors = pgTable("visitors", {
   device: text("device"),
   referrer: text("referrer"),
   path: text("path"),
+  asName: text("as_name"),
+  isHosting: boolean("is_hosting").default(false),
+  isProxy: boolean("is_proxy").default(false),
+  isMobile: boolean("is_mobile").default(false),
+  botReason: text("bot_reason"),
   isBot: boolean("is_bot").default(false),
   visitedAt: timestamp("visited_at").defaultNow().notNull(),
 });

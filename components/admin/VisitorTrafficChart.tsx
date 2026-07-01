@@ -54,43 +54,43 @@ export function VisitorTrafficChart({
             <AreaChart data={chartData}>
               <defs>
                 <linearGradient id="colorVisits" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.1}/>
-                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.15}/>
+                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="10 10" vertical={false} stroke="rgba(148, 163, 184, 0.1)" />
-              <XAxis 
-                dataKey="date" 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fontSize: 10, fill: '#64748b', fontWeight: 400 }}
+              <CartesianGrid strokeDasharray="10 10" vertical={false} stroke="hsl(var(--border))" />
+              <XAxis
+                dataKey="date"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))', fontWeight: 400 }}
                 dy={10}
               />
-              <YAxis 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fontSize: 10, fill: '#64748b', fontWeight: 400 }}
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))', fontWeight: 400 }}
                 dx={-10}
               />
-            <Tooltip 
-                cursor={{ stroke: 'var(--primary)', strokeWidth: 1, strokeDasharray: '5 5' }}
-                contentStyle={{ 
-                  backgroundColor: 'var(--card)',
-                  border: '1px solid var(--border)',
+            <Tooltip
+                cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '5 5' }}
+                contentStyle={{
+                  backgroundColor: 'hsl(var(--card))',
+                  border: '1px solid hsl(var(--border))',
                   borderRadius: '1.25rem',
                   boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
                   padding: '12px 16px'
                 }}
-                itemStyle={{ color: 'var(--primary)', fontWeight: 600, fontSize: '14px' }}
-                labelStyle={{ color: 'var(--muted-foreground)', fontWeight: 600, fontSize: '10px', textTransform: 'uppercase', marginBottom: '4px' }}
+                itemStyle={{ color: 'hsl(var(--primary))', fontWeight: 600, fontSize: '14px' }}
+                labelStyle={{ color: 'hsl(var(--muted-foreground))', fontWeight: 600, fontSize: '10px', textTransform: 'uppercase', marginBottom: '4px' }}
               />
-              <Area 
-                type="monotone" 
-                dataKey="visits" 
-                stroke="var(--primary)" 
-                strokeWidth={2} 
-                fillOpacity={0.1} 
-                fill="var(--primary)" 
+              <Area
+                type="monotone"
+                dataKey="visits"
+                stroke="hsl(var(--primary))"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorVisits)"
                 animationDuration={2000}
               />
             </AreaChart>

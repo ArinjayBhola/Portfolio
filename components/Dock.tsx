@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, User, Briefcase, FolderGit2, Mail, FileText, Moon, Sun } from "lucide-react";
+import { Home, User, Briefcase, FolderGit2, Mail, FileText } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { FloatingDock, type DockItem } from "./ui/floating-dock";
-import { useTheme } from "@/lib/theme-provider";
 import Link from "next/link";
 
 const SOCIALS = {
@@ -18,7 +17,6 @@ const SOCIALS = {
 const SECTIONS = ["home", "about", "experience", "projects"] as const;
 
 const Dock = () => {
-  const { theme, toggleTheme } = useTheme();
   const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
@@ -53,12 +51,6 @@ const Dock = () => {
     { title: "GitHub", icon: <FaGithub className="h-full w-full" />, href: SOCIALS.github, external: true },
     { title: "LinkedIn", icon: <FaLinkedinIn className="h-full w-full" />, href: SOCIALS.linkedin, external: true },
     { title: "Resume", icon: <FileText className="h-full w-full" />, href: SOCIALS.resume, external: true  },
-    "divider",
-    {
-      title: theme === "dark" ? "Light mode" : "Dark mode",
-      icon: theme === "dark" ? <Sun className="h-full w-full" /> : <Moon className="h-full w-full" />,
-      onClick: toggleTheme,
-    },
   ];
 
   return (
@@ -92,13 +84,6 @@ const Dock = () => {
         <Link href={SOCIALS.resume} target="_blank" aria-label="Resume" className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
           <FileText className="h-4 w-4" />
         </Link>
-        <button
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-          className="flex h-9 w-9 items-center justify-center rounded-xl text-foreground/70 hover:text-primary"
-        >
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </button>
       </div>
     </motion.div>
   );

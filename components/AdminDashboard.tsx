@@ -27,6 +27,11 @@ interface Visitor {
   device: string | null;
   referrer: string | null;
   path: string | null;
+  asName: string | null;
+  isHosting: boolean | null;
+  isProxy: boolean | null;
+  isMobile: boolean | null;
+  botReason: string | null;
   isBot: boolean;
   visitedAt: Date | string;
 }
@@ -84,6 +89,11 @@ export default function AdminDashboard() {
           region: v.region,
           country: v.country,
           org: v.org,
+          asName: v.asName,
+          isHosting: v.isHosting,
+          isProxy: v.isProxy,
+          isMobile: v.isMobile,
+          botReason: v.botReason,
           userAgent: v.userAgent,
           browser: v.browser,
           os: v.os,

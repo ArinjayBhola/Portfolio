@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, MapPin, Trash2, ChevronLeft, RefreshCw, Globe, Monitor, Smartphone, Bot, Layout } from "lucide-react";
+import { Clock, MapPin, Trash2, ChevronLeft, RefreshCw, Globe, Monitor, Smartphone, Bot, Layout, Server, ShieldAlert } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { JourneyTrace } from "./JourneyTrace";
 import { formatDate } from "@/lib/utils";
@@ -83,9 +83,24 @@ export function ActivityRow({
               {group.ip}
             </span>
             {group.isBot && (
-              <div className="flex items-center gap-1 bg-amber-500/5 text-amber-500/80 px-1.5 py-0.5 rounded border border-amber-500/10">
+              <div
+                title={group.botReason ? `Flagged: ${group.botReason}` : "Automated traffic"}
+                className="flex items-center gap-1 bg-amber-500/5 text-amber-500/80 px-1.5 py-0.5 rounded border border-amber-500/10"
+              >
                 <Bot className="w-2.5 h-2.5" />
                 <span className="text-[7px] font-black uppercase tracking-tighter">Bot</span>
+              </div>
+            )}
+            {group.isHosting && (
+              <div title="Datacenter / hosting IP" className="flex items-center gap-1 bg-destructive/5 text-destructive/70 px-1.5 py-0.5 rounded border border-destructive/10">
+                <Server className="w-2.5 h-2.5" />
+                <span className="text-[7px] font-black uppercase tracking-tighter">Datacenter</span>
+              </div>
+            )}
+            {group.isProxy && (
+              <div title="Proxy / VPN / Tor" className="flex items-center gap-1 bg-amber-500/5 text-amber-500/70 px-1.5 py-0.5 rounded border border-amber-500/10">
+                <ShieldAlert className="w-2.5 h-2.5" />
+                <span className="text-[7px] font-black uppercase tracking-tighter">Proxy</span>
               </div>
             )}
             {group.count > 1 && (
@@ -144,8 +159,8 @@ export function ActivityRow({
                         ? (group.referrer.includes('://') ? new URL(group.referrer).hostname.replace('www.', '') : group.referrer)
                         : "direct traffic"}
                 </span>
-                <span className="text-[7px] font-black text-muted-foreground/20 uppercase tracking-widest truncate" title={group.org || ''}>
-                    {group.org || 'Local Network'}
+                <span className="text-[7px] font-black text-muted-foreground/20 uppercase tracking-widest truncate" title={group.asName || group.org || ''}>
+                    {group.asName || group.org || 'Local Network'}
                 </span>
             </div>
           </div>

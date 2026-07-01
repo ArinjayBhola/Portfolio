@@ -33,30 +33,60 @@ export async function trackVisitor() {
     // 2. Enhanced Referrer Capture
     const rawReferrer = headersList.get("referer") || headersList.get("Referer") || "Direct";
     const referrer = rawReferrer.trim() || "Direct";
-    
-    // Server-side debug log (Visible in terminal where npm run dev is running)
-    console.log(`[ANALYTICS] Visit from ${ip} | Source: ${referrer} | UA: ${userAgent.slice(0, 30)}...`);
-    
+
     const host = headersList.get("host");
     const path = referrer.includes(host || "") ? new URL(referrer).pathname : "/";
 
     // 3. User Agent Parsing
     const parser = new UAParser(userAgent);
     const result = parser.getResult();
-    const browser = result.browser.name 
-      ? `${result.browser.name} ${result.browser.version || ""}`.trim() 
+    const hasBrowser = !!result.browser.name;
+    const hasOs = !!result.os.name;
+    const browser = hasBrowser
+      ? `${result.browser.name} ${result.browser.version || ""}`.trim()
       : "Unknown";
-    const os = result.os.name 
-      ? `${result.os.name} ${result.os.version || ""}`.trim() 
+    const os = hasOs
+      ? `${result.os.name} ${result.os.version || ""}`.trim()
       : "Unknown";
     const device = result.device.type || "desktop";
-    
-    // 4. Bot Detection
-    const isBot = /bot|googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver/i.test(userAgent);
 
-    // 5. Geolocation
-    const response = await fetch(`http://ip-api.com/json/${ip}`);
-    const data = await response.json();
+    // 4. Geolocation + network intelligence (request hosting/proxy/mobile flags)
+    const geoFields =
+      "status,message,country,countryCode,region,regionName,city,lat,lon,timezone,isp,org,as,asname,mobile,proxy,hosting,query";
+    let data: any = {};
+    try {
+      const response = await fetch(`http://ip-api.com/json/${ip}?fields=${geoFields}`);
+      data = await response.json();
+    } catch {
+      data = {};
+    }
+    const geoOk = data.status === "success";
+
+    // 5. Strong, multi-signal bot detection.
+    // The single strongest signal is a datacenter/hosting IP — real humans do
+    // not browse from AWS/GCP/Azure/Hetzner/DigitalOcean ranges.
+    const ua = userAgent.toLowerCase();
+    const isLocalhost = ip === "127.0.0.1" || ip === "::1";
+
+    const uaBotPattern =
+      /bot|crawl|spider|slurp|scrape|curl|wget|python|java(?!script)|ruby|perl|php|go-http|okhttp|axios|node-fetch|got \(|libwww|httpclient|http[-_]client|winhttp|urllib|aiohttp|guzzle|phantom|headless|puppeteer|playwright|selenium|lighthouse|pagespeed|pingdom|uptime|statuscake|newrelic|datadog|monitor|preview|facebookexternalhit|whatsapp|telegrambot|discordbot|slackbot|twitterbot|linkedinbot|embedly|feedfetcher|semrush|ahrefs|mj12|dotbot|petalbot|bytespider|gptbot|claudebot|anthropic|ccbot|amazonbot|dataforseo|censys|masscan|zgrab|nmap|shodan/i;
+
+    const reasons: string[] = [];
+    if (!userAgent || userAgent === "Unknown Device") reasons.push("empty-ua");
+    else if (uaBotPattern.test(ua)) reasons.push("ua-signature");
+    if (geoOk && data.hosting === true) reasons.push("datacenter-ip");
+    if (geoOk && data.proxy === true) reasons.push("proxy-vpn");
+    // A real browser always resolves both browser AND OS. Neither => automated client.
+    if (!hasBrowser && !hasOs && !isLocalhost) reasons.push("no-browser-signature");
+
+    const isBot = reasons.length > 0;
+    const botReason = reasons.length ? reasons.join(",") : null;
+
+    console.log(
+      `[ANALYTICS] ${ip} | ${geoOk ? data.city + ", " + data.country : "geo?"} | net: ${
+        geoOk ? data.asname || data.isp : "?"
+      } | ${isBot ? "BOT[" + botReason + "]" : "HUMAN"}`
+    );
 
     const visitorData: any = {
       visitorId,
@@ -68,14 +98,19 @@ export async function trackVisitor() {
       referrer,
       path,
       isBot,
+      botReason,
+      isHosting: geoOk ? !!data.hosting : false,
+      isProxy: geoOk ? !!data.proxy : false,
+      isMobile: geoOk ? !!data.mobile : false,
     };
 
-    if (data.status === "success") {
+    if (geoOk) {
       visitorData.city = data.city;
       visitorData.region = data.regionName;
       visitorData.country = data.country;
       visitorData.loc = `${data.lat},${data.lon}`;
-      visitorData.org = data.isp;
+      visitorData.org = data.org || data.isp;
+      visitorData.asName = data.asname || data.as || null;
     }
 
     await db.insert(visitors).values(visitorData);

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css"
-import { ThemeProvider } from "../lib/theme-provider";
 
 export const metadata: Metadata = {
   title: "Arinjay Bhola | Portfolio",
@@ -19,7 +18,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   );

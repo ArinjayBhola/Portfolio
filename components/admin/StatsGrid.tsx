@@ -28,9 +28,9 @@ export function StatsGrid({
 }: StatsGridProps) {
   const stats: StatItem[] = [
     { label: "Total Sessions", value: totalVisitors, icon: Users, color: "text-primary", bg: "bg-primary/10", ring: "group-hover:shadow-[0_0_25px_-8px_hsl(var(--primary))]", trend: "LOGS" },
-    { label: "Unique Visitors", value: uniqueVisitors, icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#10b981]", trend: "RETENTION" },
-    { label: "Countries", value: countriesCount, icon: Map, color: "text-sky-500", bg: "bg-sky-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#0ea5e9]", trend: "GLOBAL" },
-    { label: "Peak Visits", value: peakVisits, icon: Clock, color: "text-violet-500", bg: "bg-violet-500/10", ring: "group-hover:shadow-[0_0_25px_-8px_#8b5cf6]", trend: "PERFORMANCE" }
+    { label: "Unique Visitors", value: uniqueVisitors, icon: TrendingUp, color: "text-[#b5794f]", bg: "bg-[#b5794f]/10", ring: "group-hover:shadow-[0_0_25px_-8px_#b5794f]", trend: "RETENTION" },
+    { label: "Countries", value: countriesCount, icon: Map, color: "text-[#5a8c7d]", bg: "bg-[#5a8c7d]/10", ring: "group-hover:shadow-[0_0_25px_-8px_#5a8c7d]", trend: "GLOBAL" },
+    { label: "Peak Visits", value: peakVisits, icon: Clock, color: "text-[#c1a044]", bg: "bg-[#c1a044]/10", ring: "group-hover:shadow-[0_0_25px_-8px_#c1a044]", trend: "PERFORMANCE" }
   ];
 
   return (

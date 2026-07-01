@@ -63,7 +63,7 @@ export function TrafficSources({
             </div>
           </div>
         )) : (
-          <div className="py-8 flex flex-col items-center gap-3 opacity-20 filter grayscale dark:invert">
+          <div className="py-8 flex flex-col items-center gap-3 opacity-20 filter grayscale">
             <Link2 className="w-10 h-10" />
             <p className="text-[9px] font-bold uppercase tracking-widest">No Referral Data</p>
           </div>
