@@ -149,11 +149,12 @@ export const experiences = [
     slug: "pan-earth",
     role: "Full Stack Developer Intern",
     company: "Pan Earth Pvt. Ltd.",
-    duration: "Jan 2026 - Ongoing",
+    duration: "Jan 2026 – July 2026",
     description: [
-      "Architected and engineered a comprehensive cross-platform expense management ecosystem, integrating a Next.js web portal with a React Native mobile application for real-time synchronization.",
-      "Developed a high-performance serverless backend utilizing Hono and Cloudflare Workers, ensuring ultra-low latency and global scalability across all client platforms.",
-      "Engineered a robust Role-Based Access Control (RBAC) system with multi-tier authorization, securing sensitive financial data and scoping access for diverse user personas.",
+      "Conceived, architected, and independently shipped an end-to-end ERP-style expense management platform, replacing a manual, paper based process and cutting reimbursement turnaround time by nearly 80% across the organization. (2 weeks to 3 days), directly boosting employee productivity",
+      "Own the full product lifecycle as the sole engineer, architecting cross-platform Next.js and React Native clients on a serverless backend that powers daily workflows, from system design through deployment and iteration.",
+      "Re-engineered backend infrastructure by migrating to Hono and Cloudflare Workers, slashing average API response time from 1-2 seconds to 400-500ms, a roughly 70% latency reduction that made the app feel instantaneous to end users.",
+      "Engineered a granular, role-based authentication system spanning 3 distinct user roles (admin, manager, employee), safeguarding sensitive financial data and enforcing scoped access across both platforms."
     ],
     technologies: ["Next.js", "React Native", "Hono", "Cloudflare Workers"],
   },
@@ -161,11 +162,11 @@ export const experiences = [
     slug: "mittal-gupta",
     role: "Full Stack Developer Intern",
     company: "Mittal Gupta and Co.",
-    duration: "Aug 2025 - Oct 2025",
+    duration: "Aug 2025 – Oct 2025",
     description: [
-      "Integrated frontend applications with backend services to handle authentication, permissions, and secure data access across multiple user roles.",
-      "Collaborated to break down real business problems into technical tasks and deliver features incrementally under guidance.",
-      "Optimized secure data access across multiple user roles, ensuring data integrity and compliance.",
+      "Architected a unified full-stack dashboard that consolidated multiple backend APIs into a single interface, giving several distinct user groups secure, role-aware access to their data.",
+      "Built a complete role-based authentication system from scratch, bridging frontend flows with protected backend routes and closing critical gaps in unauthorized-access handling.",
+      "Designed relational database schemas to support secure, structured handling of sensitive client data end to end."
     ],
     technologies: ["React", "Node.js"],
   },
@@ -173,11 +174,11 @@ export const experiences = [
     slug: "ginete-technologies",
     role: "Full Stack Developer Intern",
     company: "Ginete Technologies Pvt. Ltd.",
-    duration: "May 2025 - Aug 2025",
+    duration: "May 2025 – Aug 2025",
     description: [
-      "Architected and delivered domain-specific full-stack applications, including internal HR tools and business workflow platforms.",
-      "Designed and implemented RESTful APIs, database schemas, and document-handling pipelines using React, Next.js, Node.js, and PostgreSQL.",
-      "Owned end-to-end development and deployment, translating business processes into scalable, production-ready systems.",
+      "Built and delivered domain-specific full-stack applications, including internal HR tools and business workflow platforms, translating real operational needs into production-grade software for direct clients.",
+      "Designed RESTful APIs, database schemas, and document-handling pipelines using React, Next.js, Node.js, and PostgreSQL, enabling seamless file uploads, data extraction, and role-based access.",
+      "Owned end-to-end development and deployment, working directly with clients to translate business processes into production-ready systems."
     ],
     technologies: ["Next.js", "React", "Node.js", "PostgreSQL"],
   },
@@ -190,8 +191,8 @@ export const experiences = [
       "Led debugging efforts and optimized page functionality to enhance overall user experience, resulting in improved performance and faster load times.",
       "Developed and implemented responsive web pages, driving a smoother and more efficient interaction for end-users.",
       "Collaborated cross-functionally with team members to identify performance bottlenecks, resolve technical issues, and deliver a seamless application experience.",
-      "Containerized and deployed APIs using Docker, ensuring a consistent and isolated environment for development, testing, and production.",
+      "Containerized and deployed APIs using Docker, ensuring a consistent and isolated environment for development, testing, and production."
     ],
     technologies: ["React.js", "Node.js", "Docker", "Tailwind CSS", "Spring Boot"],
-  },
+  }
 ];

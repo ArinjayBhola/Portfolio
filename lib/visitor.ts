@@ -74,7 +74,12 @@ export async function trackVisitor() {
     const reasons: string[] = [];
     if (!userAgent || userAgent === "Unknown Device") reasons.push("empty-ua");
     else if (uaBotPattern.test(ua)) reasons.push("ua-signature");
-    if (geoOk && data.hosting === true) reasons.push("datacenter-ip");
+    // datacenter ip only counts as bot if also UA indicates bot or no browser signature
+    if (geoOk && data.hosting === true) {
+      if (uaBotPattern.test(ua) || (!hasBrowser && !hasOs && !isLocalhost)) {
+        reasons.push("datacenter-ip");
+      }
+    }
     if (geoOk && data.proxy === true) reasons.push("proxy-vpn");
     // A real browser always resolves both browser AND OS. Neither => automated client.
     if (!hasBrowser && !hasOs && !isLocalhost) reasons.push("no-browser-signature");
