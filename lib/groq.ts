@@ -1,10 +1,9 @@
 import Groq from "groq-sdk";
 import { toolSchemas } from "./tools";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "" });
-
-// Production model on Groq with native tool / function-calling support.
-const MODEL = "llama-3.3-70b-versatile";
+// Both models are listed on Groq's Free Plan. Keep the Groq account on that
+// plan for free usage; model selection does not override account billing.
+const MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b"] as const;
 
 const SYSTEM_PROMPT = `
 You are an intelligent co-browsing assistant for Arinjay Bhola's portfolio website.
@@ -41,6 +40,17 @@ You will receive the current page content in each user message. Use it to provid
 type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
 
 export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
+  const apiKey = process.env.GROQ_API_KEY?.trim();
+  if (!apiKey) {
+    throw new Error(
+      "Chat is not configured. Add GROQ_API_KEY to .env and restart the server.",
+    );
+  }
+  if (!messages.length || !messages[messages.length - 1]?.content?.trim()) {
+    throw new Error("Please send a non-empty message.");
+  }
+  // Disable SDK retries so a failed primary immediately moves to the fallback.
+  const groq = new Groq({ apiKey, timeout: 12000, maxRetries: 0 });
   // Build the conversation: system prompt + prior history.
   const history = messages.slice(0, -1).map((msg) => ({
     role: msg.role === "system" ? ("assistant" as const) : msg.role,
@@ -50,40 +60,68 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
   // Inject the current page context into the latest user message.
   const latestMessage = messages[messages.length - 1].content;
   const promptWithContext = `CURRENT PAGE CONTENT: ${JSON.stringify(
-    pageContext
+    pageContext,
   )}\n\nUSER MESSAGE: ${latestMessage}`;
 
-  const completion = await groq.chat.completions.create({
-    model: MODEL,
-    max_tokens: 1000,
-    temperature: 0.6,
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      ...history,
-      { role: "user", content: promptWithContext },
-    ],
-    tools: toolSchemas as any,
-    tool_choice: "auto",
-  });
-
-  const choice = completion.choices[0];
-  const message = choice?.message;
-
-  const text = message?.content?.trim() || "";
-
-  const toolCalls = (message?.tool_calls || []).map((call) => {
-    let parameters: Record<string, any> = {};
+  for (const model of MODELS) {
     try {
-      parameters = call.function.arguments ? JSON.parse(call.function.arguments) : {};
-    } catch {
-      parameters = {};
+      const completion = await groq.chat.completions.create({
+        model,
+        max_completion_tokens: 2000,
+        reasoning_effort: model === "openai/gpt-oss-120b" ? "low" : "none",
+        temperature: 0.6,
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          ...history,
+          { role: "user", content: promptWithContext },
+        ],
+        tools: toolSchemas as any,
+        tool_choice: "auto",
+      });
+
+      const choice = completion.choices[0];
+      const message = choice?.message;
+
+      const text = message?.content?.trim() || "";
+
+      const toolCalls = (message?.tool_calls || []).flatMap((call) => {
+        if (
+          !toolSchemas.some(
+            (schema) => schema.function.name === call.function.name,
+          )
+        )
+          return [];
+        try {
+          const parameters = call.function.arguments
+            ? JSON.parse(call.function.arguments)
+            : {};
+          if (
+            !parameters ||
+            typeof parameters !== "object" ||
+            Array.isArray(parameters)
+          )
+            return [];
+          return [{ tool: call.function.name, parameters }];
+        } catch {
+          return [];
+        }
+      });
+
+      if (!text && toolCalls.length === 0) {
+        throw new Error("Model returned no usable answer.");
+      }
+
+      return { text, toolCalls };
+    } catch (error) {
+      // Log only the model and status, never keys or raw provider payloads.
+      const status =
+        error && typeof error === "object" && "status" in error
+          ? error.status
+          : "unavailable";
+      console.warn(`Chat model ${model} failed (${status}).`);
     }
-    return { tool: call.function.name, parameters };
-  });
-
-  if (!text && toolCalls.length === 0) {
-    return { text: "I'm sorry, I couldn't process that.", toolCalls: [] };
   }
-
-  return { text, toolCalls };
+  throw new Error(
+    "Both chat models are unavailable. Please try again shortly or contact Arinjay by email.",
+  );
 }

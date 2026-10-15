@@ -146,6 +146,19 @@ export const projects = [
 
 export const experiences = [
   {
+    slug: "drizzy",
+    role: "Developer Intern",
+    company: "Drizzy",
+    duration: "Aug 2026 – Present",
+    description: [
+      "Work across frontend and backend development, collaborating with senior engineers on how product features are structured, connected, and maintained as the platform grows.",
+      "Built a dynamic pricing engine that translates demand and business rules into real-time price adjustments, bringing pricing decisions into the product instead of relying on fixed values.",
+      "Improved critical API endpoints with a focus on faster responses and dependable behavior during peak traffic, helping keep core product flows responsive under load.",
+      "Organized the pricing system into reusable, tested modules with clear responsibilities, making the logic easier to extend and helping new engineers understand the implementation."
+    ],
+    technologies: ["System Design", "Dynamic Pricing", "REST APIs", "Modular Architecture"],
+  },
+  {
     slug: "pan-earth",
     role: "Full Stack Developer Intern",
     company: "Pan Earth Pvt. Ltd.",

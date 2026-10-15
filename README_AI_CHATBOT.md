@@ -1,10 +1,16 @@
 # AI Co-browsing Portfolio Assistant
 
-This project adds a production-quality, AI-powered co-browsing chatbot to a Next.js portfolio website. The chatbot acts as an intelligent assistant that understands the website's content and can interact with the page using a tool-based system.
+This project adds an AI-powered co-browsing chatbot to a Next.js portfolio website. The chatbot understands the website's content and can interact with the page using tools.
+
+Current model order on Groq: **`openai/gpt-oss-120b`** (primary), then **`qwen/qwen3.8-27b`** (fallback, preview). Both are listed under [Groq Free Plan limits](https://console.groq.com/docs/rate-limits). Use a Free Plan Groq account for free usage; these same model IDs are billable on paid plans. Free quotas and account access still apply, and a fallback cannot guarantee service if both quotas are exhausted.
+
+Each model gets one attempt with a 12-second timeout. Provider errors, rate limits, timeouts, empty responses, and replies containing only malformed tools trigger fallback. If both fail, the API returns a readable error. A missing `GROQ_API_KEY` is reported without making provider requests. Configure the key in `.env` and restart the server.
+
+Run `node tests/chat-fallback.mjs` to verify primary success, fallback behavior, tool-call preservation, and error handling with simulated provider responses. This test does not require a real key or consume quota.
 
 ## 🚀 Features
 
-- **Conversational AI**: Powered by Groq (Llama 3.3 70B Versatile) for fast, low-latency inference.
+- **Conversational AI**: Powered by Groq with GPT-OSS 120B and automatic Qwen 3.8 27B fallback.
 - **Dynamic Context**: Automatically extracts section content, project details, and form fields from the DOM.
 - **Co-browsing Tools**: The AI can scroll, navigate to sections, highlight elements, and even help fill out contact forms.
 - **Modern UI**: A sleek, floating chat widget built with React, TailwindCSS, and Framer Motion.
