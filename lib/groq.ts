@@ -1,5 +1,6 @@
 import Groq from "groq-sdk";
 import { toolSchemas } from "./tools";
+import { portfolioKnowledge, sectionAnswer } from "./chat-context";
 
 // Both models are listed on Groq's Free Plan. Keep the Groq account on that
 // plan for free usage; model selection does not override account billing.
@@ -26,6 +27,7 @@ INSTRUCTIONS:
 - Use your tools when a user asks for an action (e.g., "show me projects", "scroll down").
 - When calling a tool, briefly explain what you are doing (e.g., "Navigating to projects...").
 - You can call multiple tools in a single response if needed.
+- Invoke actions through native tool calls. Never print tool-call JSON, pretend to execute tools in prose, or claim navigation when no tool is requested.
 
 MANDATORY BEHAVIOR:
 1. If the user asks about Arinjay's work, experience, skills, or projects, you MUST call 'navigate_to_section' in the same response.
@@ -52,16 +54,30 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
   // Disable SDK retries so a failed primary immediately moves to the fallback.
   const groq = new Groq({ apiKey, timeout: 12000, maxRetries: 0 });
   // Build the conversation: system prompt + prior history.
-  const history = messages.slice(0, -1).map((msg) => ({
+  const history = messages.slice(-11, -1).map((msg) => ({
     role: msg.role === "system" ? ("assistant" as const) : msg.role,
     content: msg.content,
   }));
 
   // Inject the current page context into the latest user message.
   const latestMessage = messages[messages.length - 1].content;
+  // Discard repeated CSS classes and chat-widget text to conserve free-tier tokens.
+  const compactContext = {
+    sections: pageContext?.sections?.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      text: String(item.text || "").slice(0, 600),
+    })),
+    inputs: pageContext?.inputs,
+    skills: pageContext?.skills,
+  };
   const promptWithContext = `CURRENT PAGE CONTENT: ${JSON.stringify(
-    pageContext,
+    compactContext,
   )}\n\nUSER MESSAGE: ${latestMessage}`;
+  const groundedPrompt =
+    SYSTEM_PROMPT +
+    "\nVERIFIED PORTFOLIO CONTENT (includes all experience tabs): " +
+    JSON.stringify(portfolioKnowledge);
 
   for (const model of MODELS) {
     try {
@@ -71,7 +87,7 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
         reasoning_effort: model === "openai/gpt-oss-120b" ? "low" : "none",
         temperature: 0.6,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: groundedPrompt },
           ...history,
           { role: "user", content: promptWithContext },
         ],
@@ -82,7 +98,7 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
       const choice = completion.choices[0];
       const message = choice?.message;
 
-      const text = message?.content?.trim() || "";
+      let text = message?.content?.trim() || "";
 
       const toolCalls = (message?.tool_calls || []).flatMap((call) => {
         if (
@@ -111,6 +127,51 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
         throw new Error("Model returned no usable answer.");
       }
 
+      // A tool-call response may legitimately have null content. Complete that
+      // turn with a text-only answer, keeping the original browser actions.
+      if (!text && message?.tool_calls?.length) {
+        const target = toolCalls.find(
+          (call) => call.tool === "navigate_to_section",
+        )?.parameters.sectionId;
+        text = sectionAnswer(latestMessage, target, pageContext);
+        if (text) return { text, toolCalls };
+        try {
+          const followUp = await groq.chat.completions.create({
+            model,
+            max_completion_tokens: 1500,
+            reasoning_effort: model === "openai/gpt-oss-120b" ? "low" : "none",
+            messages: [
+              {
+                role: "system",
+                content:
+                  groundedPrompt +
+                  "\nThis is the final text-only follow-up. The preceding tool calls are already queued for the browser. Answer the user's question directly from the page content. Do not call, repeat, or describe additional tools, and do not print action JSON.",
+              },
+              ...history,
+              { role: "user", content: promptWithContext },
+              message,
+              ...message.tool_calls.map((call) => ({
+                role: "tool" as const,
+                tool_call_id: call.id,
+                content: JSON.stringify({
+                  status: "queued_for_browser",
+                  note: "The browser has not executed this action yet. Answer the user's question using the supplied page content; do not claim a form was sent or an action completed.",
+                }),
+              })),
+            ],
+            tools: toolSchemas as any,
+            tool_choice: "none",
+          });
+          text = followUp.choices[0]?.message?.content?.trim() || "";
+        } catch {
+          // Preserve navigation even if the separate text request fails.
+        }
+        if (!text) {
+          text =
+            "The page action is ready, but I couldn't answer that question. Try asking about a company, project, or contact details.";
+        }
+      }
+
       return { text, toolCalls };
     } catch (error) {
       // Log only the model and status, never keys or raw provider payloads.
@@ -120,6 +181,20 @@ export async function chatWithGroq(messages: ChatMessage[], pageContext: any) {
           : "unavailable";
       console.warn(`Chat model ${model} failed (${status}).`);
     }
+  }
+  const text = sectionAnswer(latestMessage, undefined, pageContext);
+  if (text) {
+    const target = /experience|career|internship|companies/i.test(latestMessage)
+      ? "experience"
+      : /contact|email|reach|hire/i.test(latestMessage)
+        ? "contact"
+        : "projects";
+    return {
+      text,
+      toolCalls: [
+        { tool: "navigate_to_section", parameters: { sectionId: target } },
+      ],
+    };
   }
   throw new Error(
     "Both chat models are unavailable. Please try again shortly or contact Arinjay by email.",
